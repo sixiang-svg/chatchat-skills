@@ -67,7 +67,65 @@ jobs:
                   fm[key] = [];
                   currentKey = key;
                 } else {
-                  fm[key] = val.replace(/^['\"]|['\"]$/g, '');
+                  const trimmed = val.trim();
+                  const isInlineArray =
+                    (key === 'requires' || key === 'examples') &&
+                    trimmed.startsWith('[') &&
+                    trimmed.endsWith(']');
+
+                  if (isInlineArray) {
+                    let arr = null;
+                    try {
+                      const parsed = JSON.parse(trimmed);
+                      if (Array.isArray(parsed)) {
+                        arr = parsed.map((x) => String(x));
+                      }
+                    } catch (_) {}
+
+                    if (!arr) {
+                      const inner = trimmed.slice(1, -1).trim();
+                      if (!inner) {
+                        arr = [];
+                      } else {
+                        const parts = [];
+                        let buf = '';
+                        let quote = null;
+                        for (let i = 0; i < inner.length; i++) {
+                          const ch = inner[i];
+                          if (quote) {
+                            if (ch === quote && inner[i - 1] !== '\\') {
+                              quote = null;
+                            }
+                            buf += ch;
+                            continue;
+                          }
+
+                          if (ch === '"' || ch === "'") {
+                            quote = ch;
+                            buf += ch;
+                            continue;
+                          }
+
+                          if (ch === ',') {
+                            parts.push(buf.trim());
+                            buf = '';
+                            continue;
+                          }
+
+                          buf += ch;
+                        }
+                        if (buf.trim()) parts.push(buf.trim());
+
+                        arr = parts
+                          .map((s) => s.replace(/^['\"]|['\"]$/g, '').trim())
+                          .filter(Boolean);
+                      }
+                    }
+
+                    fm[key] = arr;
+                  } else {
+                    fm[key] = val.replace(/^['\"]|['\"]$/g, '');
+                  }
                   currentKey = null;
                 }
               }
