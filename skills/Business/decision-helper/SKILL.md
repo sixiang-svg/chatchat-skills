@@ -1,7 +1,7 @@
 ---
 id: decision-helper
 name: "Decision Helper"
-description: "Structured decision-making frameworks for evaluating options and making informed choices. Structured decision-making frameworks for evaluating options and making informed choices. Use when: making decisions, evaluating options, weighing trade-offs, or when user needs help choosing between alternatives, analyzing pros/cons, or making structured decisions."
+description: "Structured decision-making frameworks for evaluating options and making informed choices. Use when making decisions, weighing trade-offs, and choosing between alternatives."
 category: Business
 requires: []
 examples:

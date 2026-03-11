@@ -1,8 +1,8 @@
 ---
 id: databricks-prod-checklist
 name: "Databricks Prod Checklist"
-description: "Execute Databricks production deployment checklist and rollback procedures. Execute Databricks production deployment checklist and rollback procedures. Use when deploying Databricks jobs to production, preparing for launch, or implementing go-live procedures. Trigger with phrases like \"databricks production\", \"deploy databricks\", \"databricks go-live\", \"databricks launch checklist\"."
-category: Business
+description: "Execute Databricks production deployment checklist and rollback procedures. Use when deploying Databricks jobs to production, preparing for launch, or implementing go-live procedures."
+category: DevOps
 requires: []
 examples:
   - "Help me with databricks prod checklist."

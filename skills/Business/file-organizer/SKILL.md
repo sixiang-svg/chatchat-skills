@@ -2,7 +2,7 @@
 id: file-organizer
 name: "File Organizer"
 description: "Step-by-step guidance for file organizer."
-category: Business
+category: Lifestyle
 requires: []
 examples:
   - "Help me with file organizer."

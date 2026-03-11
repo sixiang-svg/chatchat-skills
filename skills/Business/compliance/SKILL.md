@@ -2,7 +2,7 @@
 id: compliance
 name: "Compliance"
 description: "Verify technical accuracy of JavaScript concept pages by checking code examples, MDN/ECMAScript compliance, and external resources to prevent misinformation."
-category: Business
+category: Development
 requires: []
 examples:
   - "Help me with compliance."

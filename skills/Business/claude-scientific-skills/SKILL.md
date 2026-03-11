@@ -2,7 +2,7 @@
 id: claude-scientific-skills
 name: "Claude Scientific Skills"
 description: "Scientific research and analysis skills."
-category: Business
+category: Research
 requires: []
 examples:
   - "Help me with claude scientific skills."

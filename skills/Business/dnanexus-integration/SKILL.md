@@ -2,7 +2,7 @@
 id: dnanexus-integration
 name: "Dnanexus Integration"
 description: "Guidance and answers for dnanexus integration."
-category: Business
+category: Research
 requires: []
 examples:
   - "Help me with dnanexus integration."

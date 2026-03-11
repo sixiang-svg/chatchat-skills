@@ -2,7 +2,7 @@
 id: clerk-prod-checklist
 name: "Clerk Prod Checklist"
 description: "Production readiness checklist for Clerk deployment. Production readiness checklist for Clerk deployment. Use when preparing to deploy, reviewing production configuration, or auditing Clerk implementation before launch. Trigger with phrases like \"clerk production\", \"clerk deploy checklist\", \"clerk go-live\", \"clerk launch ready\"."
-category: Business
+category: DevOps
 requires: []
 examples:
   - "Help me with clerk prod checklist."

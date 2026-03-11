@@ -2,7 +2,7 @@
 id: cost-optimization
 name: "Cost Optimization"
 description: "Step-by-step guidance for cost optimization."
-category: Business
+category: DevOps
 requires: []
 examples:
   - "Help me with cost optimization."

@@ -2,7 +2,7 @@
 id: clinical-decision-support
 name: "Clinical Decision Support"
 description: "Step-by-step guidance for clinical decision support."
-category: Business
+category: Research
 requires: []
 examples:
   - "Help me with clinical decision support."

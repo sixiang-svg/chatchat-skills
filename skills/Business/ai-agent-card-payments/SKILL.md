@@ -5,93 +5,113 @@ description: "Virtual card payments for AI agents. Create intents, issue cards w
 category: Business
 requires: []
 examples:
-  - "Design a safe autonomous card payment policy for AI agents."
-  - "Create an approval and audit workflow for AI-driven purchases."
+  - "Help me with ai agent card payments."
+  - "Use ai-agent-card-payments for this task."
 ---
 
 # AI Agent Card Payments
 
-Use this skill as a guidance-only framework for designing controlled AI-agent payment operations with card-based spending policies.
+Enable an AI agent to make purchases with virtual cards while Proxy enforces policy.
 
-## Use this skill when
+## What this enables
 
-- You need governance for autonomous purchasing.
-- You need approval thresholds for high-value spend.
-- You need audit-ready payment process design for agents.
+- Autonomous purchasing within limits
+- Per-intent card issuance or unlock
+- Policy enforcement with optional human approval
+- Evidence and receipt attachment for audit trails
 
-## Do not use this skill when
+## Quick start (agent token)
 
-- The user expects real payment execution from this skill.
-- The request is unrelated to payment controls or operational policy design.
-
-## Guardrails
-
-- Treat this as planning guidance only; do not claim to issue cards or run transactions.
-- Do not output or request sensitive payment data (full PAN, CVV, secrets).
-- If execution is requested, provide an implementation checklist for the user to run in their approved system.
-
-## Policy design workflow
-
-1. **Define spending scope**
-   - Approved use cases and merchants
-   - Blocked categories and scenarios
-   - Country/currency boundaries
-
-2. **Set control thresholds**
-   - Per-transaction amount caps
-   - Daily/weekly/monthly spend caps
-   - Velocity and retry limits
-
-3. **Create approval model**
-   - Auto-approve band (low risk)
-   - Manual-review band (high value, exceptions)
-   - Escalation owners and SLA
-
-4. **Define audit and evidence standards**
-   - Required metadata for each payment request
-   - Receipt and supporting evidence policy
-   - Review cadence and exception log
-
-5. **Plan incident response**
-   - Suspicious activity triggers
-   - Temporary freeze/revoke criteria
-   - Recovery and post-incident review
-
-## Recommended controls checklist
-
-- [ ] Allowed and blocked spend categories defined
-- [ ] Amount and frequency limits documented
-- [ ] Manual approval thresholds and owners assigned
-- [ ] Audit fields and evidence requirements standardized
-- [ ] Exception and incident playbook documented
-
-## Output format
-
-```markdown
-## AI Payment Policy Summary
-- Scope:
-- Primary use cases:
-- Exclusions:
-
-## Limits and Controls
-- Per-transaction cap:
-- Cumulative caps:
-- Velocity limits:
-- Expiry/deactivation rules:
-
-## Approval Workflow
-- Auto-approve conditions:
-- Manual-review triggers:
-- Escalation owner:
-- SLA:
-
-## Audit and Compliance
-- Required metadata:
-- Evidence policy:
-- Review cadence:
-- Exception handling:
-
-## Risks and Mitigations
-- Risk:
-- Mitigation:
 ```
+1) proxy.kyc.status
+2) proxy.balance.get
+3) proxy.policies.simulate (optional)
+4) proxy.intents.create
+5) if approvalRequired/pending_approval -> proxy.intents.request_approval
+6) proxy.cards.get_sensitive
+7) proxy.transactions.list_for_card
+```
+
+## MCP server config
+
+```json
+{
+  "mcpServers": {
+    "proxy": {
+      "type": "http",
+      "url": "https://mcp.useproxy.ai/api/mcp",
+      "headers": {
+        "Authorization": "Bearer $PROXY_AGENT_TOKEN"
+      }
+    }
+  }
+}
+```
+
+## Core tools (agent token)
+
+### Intents + cards
+- proxy.intents.create (agent token required)
+- proxy.intents.list
+- proxy.intents.get
+- proxy.cards.get_sensitive
+
+### Policy + status
+- proxy.policies.get
+- proxy.policies.simulate
+- proxy.kyc.status
+- proxy.balance.get
+- proxy.tools.list
+
+### Transactions + evidence
+- proxy.transactions.list_for_card
+- proxy.transactions.get
+- proxy.receipts.attach
+- proxy.evidence.list_for_intent
+
+### Merchant intelligence (advisory)
+- proxy.merchants.resolve
+- proxy.mcc.explain
+- proxy.merchants.allowlist_suggest
+
+## Human-only tools
+
+These are blocked for agent tokens and live in the dashboard or via OAuth:
+
+- proxy.funding.get
+- proxy.cards.list / get / freeze / unfreeze / rotate / close
+- proxy.intents.approve / reject
+- proxy.webhooks.list / test_event
+
+## Example: complete purchase
+
+```
+proxy.intents.create(
+  purpose="Buy API credits",
+  expectedAmount=5000,
+  expectedMerchant="OpenAI"
+)
+
+proxy.cards.get_sensitive(
+  cardId="card_xyz",
+  intentId="int_abc123",
+  reason="Complete OpenAI checkout"
+)
+```
+
+If the intent is pending approval, call:
+
+```
+proxy.intents.request_approval(
+  intentId="int_abc123",
+  context="Above auto-approve threshold"
+)
+```
+## Best practices
+
+- Use per-agent tokens for autonomous runs; rotate on compromise.
+- Simulate before creating intents to reduce failed attempts.
+- Constrain intents with expectedAmount and expectedMerchant.
+- Treat MCC/merchant allowlists as advisory unless issuer enforcement is enabled.
+- Never log PAN/CVV from proxy.cards.get_sensitive.
+

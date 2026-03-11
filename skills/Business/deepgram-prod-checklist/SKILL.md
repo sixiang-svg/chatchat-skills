@@ -1,8 +1,8 @@
 ---
 id: deepgram-prod-checklist
 name: "Deepgram Prod Checklist"
-description: "Execute Deepgram production deployment checklist. Execute Deepgram production deployment checklist. Use when preparing for production launch, auditing production readiness, or verifying deployment configurations. Trigger with phrases like \"deepgram production\", \"deploy deepgram\", \"deepgram prod checklist\", \"deepgram go-live\", \"production ready deepgram\"."
-category: Business
+description: "Execute Deepgram production deployment checklist. Use when preparing for production launch, auditing production readiness, or verifying deployment configurations."
+category: DevOps
 requires: []
 examples:
   - "Help me with deepgram prod checklist."

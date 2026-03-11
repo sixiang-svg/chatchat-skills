@@ -2,7 +2,7 @@
 id: cochesnet-cli
 name: "Cochesnet Cli"
 description: "Use the cochesnet CLI to search coches.net listings and fetch listing details. Apply when a user asks for coches.net marketplace data or when you need the exact CLI commands and flags for cochesnet-cli."
-category: Business
+category: Lifestyle
 requires: []
 examples:
   - "Help me with cochesnet cli."

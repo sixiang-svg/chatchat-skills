@@ -2,7 +2,7 @@
 id: context-driven-development
 name: "Context Driven Development"
 description: "Guidance and answers for context driven development."
-category: Business
+category: Development
 requires: []
 examples:
   - "Help me with context driven development."

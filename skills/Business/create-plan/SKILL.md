@@ -2,7 +2,7 @@
 id: create-plan
 name: "Create Plan"
 description: "Step-by-step guidance for create plan."
-category: Business
+category: Development
 requires: []
 examples:
   - "Help me with create plan."

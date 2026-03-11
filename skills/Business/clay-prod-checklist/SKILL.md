@@ -2,7 +2,7 @@
 id: clay-prod-checklist
 name: "Clay Prod Checklist"
 description: "Execute Clay production deployment checklist and rollback procedures. Execute Clay production deployment checklist and rollback procedures. Use when deploying Clay integrations to production, preparing for launch, or implementing go-live procedures. Trigger with phrases like \"clay production\", \"deploy clay\", \"clay go-live\", \"clay launch checklist\"."
-category: Business
+category: DevOps
 requires: []
 examples:
   - "Help me with clay prod checklist."

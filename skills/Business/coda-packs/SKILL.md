@@ -2,7 +2,7 @@
 id: coda-packs
 name: "Coda Packs"
 description: "Manage Coda Packs via REST API v1. Supports listing, creating, updating, and deleting private Packs. Requires CODA_API_TOKEN. Delete requires confirmation. Note: Builds, Gallery submission, Analytics, and Collaborators require Coda's Pack SDK CLI, not available via REST API."
-category: Business
+category: Development
 requires: []
 examples:
   - "Help me with coda packs."
