@@ -73,17 +73,6 @@ Provide:
 
 - Default output is **Markdown** (if structure is present).
 - If the user wants a bilingual version, output “Original” and “Translation” per section.
----
-id: book-translation
-category: Content & Media
-author: f
-name: Book Translation
-description: Translate  chapters and UI strings to a new language.
-requires: ["text"]
-examples:
-  - "Translate Chapter 3 of The Interactive Book of Prompting into French and keep all MDX/JSX intact."
-  - "Create a new locale for this site (messages + MDX content) and translate the UI strings into Spanish."
----
 
 # Book Translation Skill
 

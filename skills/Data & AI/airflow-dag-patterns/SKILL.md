@@ -27,13 +27,6 @@ Help the agent provide implementation-focused guidance for Airflow DAG design an
 4. Include monitoring, alerting, and cost/performance considerations.
 5. End with a concise rollout and validation checklist.
 
-## Tool Use Constraints
-
-- Use tools only when needed to complete the task.
-- Allowed built-in tools: firecrawl_searchWeb, firecrawl_scrapeUrl, rag_data_search.
-- Allowed integrations: Google Calendar, Slack, GitHub, Zoom, Microsoft Teams, Microsoft 365, Notion, X (Twitter).
-- Do not call or reference any other tools or integrations as executable options.
-
 ## Output
 
 - Recommended DAG pattern with rationale

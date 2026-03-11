@@ -27,13 +27,6 @@ Help the agent provide practical guidance for CDC architectures and operations.
 4. Include monitoring, backfill, and recovery procedures.
 5. End with a rollout and verification checklist.
 
-## Tool Use Constraints
-
-- Use tools only when needed to complete the task.
-- Allowed built-in tools: firecrawl_searchWeb, firecrawl_scrapeUrl, rag_data_search.
-- Allowed integrations: Google Calendar, Slack, GitHub, Zoom, Microsoft Teams, Microsoft 365, Notion, X (Twitter).
-- Do not call or reference any other tools or integrations as executable options.
-
 ## Output
 
 - Recommended CDC design with rationale

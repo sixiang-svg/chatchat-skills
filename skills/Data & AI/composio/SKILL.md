@@ -27,13 +27,6 @@ Help the agent provide practical guidance for Composio tool integrations and wor
 4. Suggest retries, rate-limit handling, and observability.
 5. End with an implementation and test checklist.
 
-## Tool Use Constraints
-
-- Use tools only when needed to complete the task.
-- Allowed built-in tools: firecrawl_searchWeb, firecrawl_scrapeUrl, rag_data_search.
-- Allowed integrations: Google Calendar, Slack, GitHub, Zoom, Microsoft Teams, Microsoft 365, Notion, X (Twitter).
-- Do not call or reference any other tools or integrations as executable options.
-
 ## Output
 
 - Recommended integration approach

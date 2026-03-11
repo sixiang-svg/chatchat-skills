@@ -27,13 +27,6 @@ Help the agent provide practical guidance for continuous learning design and ope
 4. Include governance and monitoring requirements.
 5. End with an actionable implementation checklist.
 
-## Tool Use Constraints
-
-- Use tools only when needed to complete the task.
-- Allowed built-in tools: firecrawl_searchWeb, firecrawl_scrapeUrl, rag_data_search.
-- Allowed integrations: Google Calendar, Slack, GitHub, Zoom, Microsoft Teams, Microsoft 365, Notion, X (Twitter).
-- Do not call or reference any other tools or integrations as executable options.
-
 ## Output
 
 - Recommended continuous learning strategy
