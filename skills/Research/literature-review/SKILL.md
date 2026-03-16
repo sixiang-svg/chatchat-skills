@@ -1,16 +1,14 @@
 ---
-category: Research
 id: literature-review
 name: Literature Review
-description: Academic research assistant for literature reviews, paper analysis, and scholarly writing.
-  Academic research assistant for literature reviews, paper analysis, and scholarly writing.
-  Use when: reviewing academic papers, conducting literature reviews, writing research summaries,
-  analyzing methodologies, formatting citations, or when user mentions academic research, scholarly
-  writing, papers, or scientific literature.
-license: MIT
-metadata:
-  author: awesome-llm-apps
-  version: "1.0.0"
+description: Academic research assistant for systematic literature reviews, paper analysis, and citation management across disciplines.
+category: Research
+author: awesome-llm-apps
+version: "1.0.0"
+requires: []
+examples:
+  - Perform a systematic literature review on the spacing effect in learning.
+  - Analyze the methodology of this research paper and identify potential gaps.
 ---
 
 # Academic Researcher

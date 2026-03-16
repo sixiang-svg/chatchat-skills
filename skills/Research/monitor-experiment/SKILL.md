@@ -1,9 +1,12 @@
 ---
-category: Research
 id: monitor-experiment
 name: Monitor Experiment
-description: Monitor Beaker experiments until completion.
-allowed-tools: Bash(beaker:*)
+description: Monitor Beaker experiments until completion, checking status and retrieving failure logs.
+category: Research
+requires: []
+examples:
+  - Monitor Beaker experiment 01KCW39T and notify me when it finishes.
+  - Get the logs for my failed experiment and explain the exit code.
 ---
 
 # Monitor Beaker Experiment
@@ -20,19 +23,12 @@ When monitoring a Beaker experiment:
    - If exitCode is non-zero: Fetch and display logs with `beaker experiment logs <experiment-id>`
 5. Continue monitoring until the experiment finishes or the user asks you to stop
 
-## Examples
+## When to Use
+- When managing long-running computational experiments or model training sessions on the Beaker platform.
+- When needing automated notifications or summaries of experiment success and failure.
+- When debugging failed remote jobs by programmatically retrieving logs and exit codes.
 
-Check experiment status:
-```bash
-beaker experiment get 01KCW39T5JBZTYV69BXHWJJ83P
-```
-
-Get experiment logs on failure:
-```bash
-beaker experiment logs 01KCW39T5JBZTYV69BXHWJJ83P
-```
-
-Stream logs in real-time for running experiments:
-```bash
-beaker experiment logs --follow 01KCW39T5JBZTYV69BXHWJJ83P
-```
+## Output
+- Real-time status updates and a final experiment summary (Success/Failure/Exit Code).
+- Extracted error logs and diagnostic explanations for failed experiments.
+- Actionable next steps for re-submitting or adjusting the experiment parameters.

@@ -1,25 +1,12 @@
 ---
-category: Research
 id: metallurgical-analysis
 name: Metallurgical Analysis
-description: Specialized skill for metallic materials analysis and metallography including grain size measurement, phase quantification, and inclusion rating.
-allowed-tools:
-  - Read
-  - Write
-  - Glob
-  - Grep
-  - Bash
-metadata:
-  specialization: materials-science
-  domain: science
-  category: materials-characterization
-  priority: high
-  phase: 6
-  tools-libraries:
-    - ImageJ
-    - Clemex
-    - ASTM E112
-    - ASTM E45
+description: Specialized skill for metallic materials characterization, grain size measurement, phase quantification, and inclusion rating.
+category: Research
+requires: []
+examples:
+  - Measure the grain size of this steel sample following ASTM E112.
+  - Select the appropriate etching reagent for a 7075 aluminum alloy.
 ---
 
 # Metallurgical Analysis Skill
