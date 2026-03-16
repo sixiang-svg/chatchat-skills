@@ -3,7 +3,7 @@ id: dashboard-create-screen
 name: Dashboard Create Screen
 description: Design and implement dashboard creation screens with clear form flow, validation, and API integration for fast first-time success. Use when building or improving "create dashboard" UX.
 category: Development
-requires: []
+requires: ["dashboard requirements", "widget/data source options", "permission model"]
 examples:
   - Build a "create dashboard" screen with template selection, naming rules, and permission-aware defaults.
   - Refactor a complex creation form into a guided multi-step flow with inline validation.

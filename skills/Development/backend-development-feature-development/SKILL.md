@@ -3,7 +3,7 @@ id: backend-development-feature-development
 name: Backend Development Feature Development
 description: Feature delivery workflow for backend services with API contracts, data changes, testing, and rollout controls.
 category: Development
-requires: []
+requires: ["feature requirements", "existing api contract", "current data model or schema"]
 examples:
   - "Implement a new backend feature with schema changes and a safe rollout plan."
   - "Plan backend feature development with API, observability, and migration steps."

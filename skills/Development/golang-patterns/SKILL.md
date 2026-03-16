@@ -3,7 +3,7 @@ id: golang-patterns
 name: Golang Patterns
 description: Apply idiomatic Go patterns for concurrency, error handling, interfaces, and package design. Use when implementing or reviewing Go services for readability, correctness, and maintainability.
 category: Development
-requires: []
+requires: ["go module path", "target package or service", "performance or reliability constraints"]
 examples:
   - Refactor a Go service to use context-aware concurrency with worker pools and cancellation.
   - Improve Go package boundaries and interface usage to simplify testing and reduce coupling.

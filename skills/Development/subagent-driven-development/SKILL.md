@@ -3,7 +3,10 @@ id: subagent-driven-development
 name: Subagent-driven Development
 description: Orchestrate multi-step DevOps implementation tasks using focused subagents with clear handoffs, validation, and integration checks.
 category: Development
-requires: []
+requires:
+  - overall delivery objective and success criteria
+  - sub-task dependency graph or work breakdown
+  - integration test and reconciliation requirements
 examples:
   - Break a platform migration into parallel subagent tasks with explicit deliverables.
   - Coordinate subagent outputs for CI hardening, observability, and deployment checks.

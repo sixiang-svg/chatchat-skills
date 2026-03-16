@@ -4,7 +4,9 @@ name: Create Pull Request
 description: Create high-quality pull requests on GitHub with clear change summaries, test plans, and reviewer-ready context.
 category: Development
 requires:
-  - github
+  - git branch with committed changes
+  - repository owner/name
+  - base branch and target branch
 examples:
   - Create a pull request from my current branch with a concise summary and test plan.
   - Draft a GitHub PR body for these changes and include rollout and verification steps.

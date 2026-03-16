@@ -1,20 +1,36 @@
 ---
 id: stitch-ui-design
-name: Stitch UI Design
-description: Step-by-step guidance for stitch UI design.
+name: Stitch Ui Design
+description: Concrete workflow for stitch ui design with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current stitch ui design goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement stitch ui design for this repository, including key decisions and checkpoints.
+  - Create a concise stitch ui design workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
-# Stitch UI Design
+# Stitch Ui Design
 
-Support stitch ui design workflows with clear steps and best practices.
+Provide practical guidance to plan and execute stitch ui design tasks in real projects.
 
 ## When to Use
 
-- You need help with stitch ui design.
-- You want a clear, actionable next step.
+- You need to scope and deliver stitch ui design work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the stitch ui design effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

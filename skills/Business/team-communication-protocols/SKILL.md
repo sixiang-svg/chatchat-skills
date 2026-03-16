@@ -2,7 +2,7 @@
 id: team-communication-protocols
 name: Team Communication Protocols
 description: Step-by-step guidance for team communication protocols.
-category: Development
+category: Business
 ---
 
 # Team Communication Protocols

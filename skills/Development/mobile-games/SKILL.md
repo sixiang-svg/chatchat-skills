@@ -1,20 +1,36 @@
 ---
 id: mobile-games
 name: Mobile Games
-description: Step-by-step guidance for mobile games.
+description: Concrete workflow for mobile games with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current mobile games goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement mobile games for this repository, including key decisions and checkpoints.
+  - Create a concise mobile games workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
 # Mobile Games
 
-Support mobile games workflows with clear steps and best practices.
+Provide practical guidance to plan and execute mobile games tasks in real projects.
 
 ## When to Use
 
-- You need help with mobile games.
-- You want a clear, actionable next step.
+- You need to scope and deliver mobile games work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the mobile games effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

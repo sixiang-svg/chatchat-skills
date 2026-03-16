@@ -1,20 +1,36 @@
 ---
 id: swiftui-expert-skill
-name: SwiftUI Expert Skill
-description: Step-by-step guidance for swiftui expert skill.
+name: Swiftui Expert Skill
+description: Concrete workflow for swiftui expert skill with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current swiftui expert skill goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement swiftui expert skill for this repository, including key decisions and checkpoints.
+  - Create a concise swiftui expert skill workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
-# SwiftUI Expert Skill
+# Swiftui Expert Skill
 
-Support swiftui expert skill workflows with clear steps and best practices.
+Provide practical guidance to plan and execute swiftui expert skill tasks in real projects.
 
 ## When to Use
 
-- You need help with swiftui expert skill.
-- You want a clear, actionable next step.
+- You need to scope and deliver swiftui expert skill work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the swiftui expert skill effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

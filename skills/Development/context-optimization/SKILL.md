@@ -1,20 +1,33 @@
 ---
 id: context-optimization
 name: Context Optimization
-description: Step-by-step guidance for context optimization.
+description: Optimize context passed to coding agents by selecting relevant files, constraints, and task goals with minimal noise.
 category: Development
+requires: ["task objective", "candidate file list or paths", "hard constraints and acceptance criteria"]
+examples:
+  - "Optimize the context for this bugfix task so the agent only gets relevant files and requirements."
+  - "Create a context pack for implementing this feature without exceeding token limits."
 ---
 
 # Context Optimization
 
-Support context optimization workflows with clear steps and best practices.
+Prepare high-signal context bundles that improve agent accuracy and reduce irrelevant processing.
 
 ## When to Use
 
-- You need help with context optimization.
-- You want a clear, actionable next step.
+- Agent outputs are noisy or off-target due to poor context.
+- You need to stay within context limits while preserving key details.
+
+## Workflow
+
+1. Clarify task outcome and must-follow constraints.
+2. Rank files and docs by direct relevance to the task.
+3. Remove redundant or low-signal context.
+4. Add concise task framing and expected output format.
+5. Validate that context still supports end-to-end execution.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- Curated context pack
+- Inclusion/exclusion rationale
+- Risk notes for missing information

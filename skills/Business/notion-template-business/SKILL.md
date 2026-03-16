@@ -2,7 +2,7 @@
 id: notion-template-business
 name: Notion Template Business
 description: Step-by-step guidance for notion template business.
-category: Development
+category: Business
 ---
 
 # Notion Template Business

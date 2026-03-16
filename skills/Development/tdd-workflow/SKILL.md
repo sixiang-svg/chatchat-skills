@@ -3,7 +3,10 @@ id: tdd-workflow
 name: TDD Workflow
 description: Apply test-driven development in delivery pipelines to ship safer changes with fast feedback and reliable regression protection.
 category: Development
-requires: []
+requires:
+  - target behavior specification
+  - existing test harness and execution command
+  - acceptance and regression criteria
 examples:
   - Plan a TDD loop for a deployment automation feature with integration tests.
   - Improve an existing pipeline by introducing red-green-refactor checkpoints.

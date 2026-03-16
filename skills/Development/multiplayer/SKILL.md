@@ -1,20 +1,36 @@
 ---
 id: multiplayer
 name: Multiplayer
-description: Step-by-step guidance for multiplayer.
+description: Concrete workflow for multiplayer with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current multiplayer goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement multiplayer for this repository, including key decisions and checkpoints.
+  - Create a concise multiplayer workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
 # Multiplayer
 
-Support multiplayer workflows with clear steps and best practices.
+Provide practical guidance to plan and execute multiplayer tasks in real projects.
 
 ## When to Use
 
-- You need help with multiplayer.
-- You want a clear, actionable next step.
+- You need to scope and deliver multiplayer work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the multiplayer effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

@@ -1,20 +1,33 @@
 ---
 id: frontend-dev-guidelines
 name: Frontend Dev Guidelines
-description: Step-by-step guidance for frontend dev guidelines.
+description: Establish frontend engineering guidelines for architecture, state, accessibility, performance, and release quality.
 category: Development
+requires: ["frontend stack details", "current team pain points", "representative codebase modules"]
+examples:
+  - "Create frontend development guidelines for our React app with standards for state, testing, and accessibility."
+  - "Given these recurring frontend bugs, define practical coding and review guidelines."
 ---
 
 # Frontend Dev Guidelines
 
-Support frontend dev guidelines workflows with clear steps and best practices.
+Define actionable frontend standards that improve consistency and reduce regressions.
 
 ## When to Use
 
-- You need help with frontend dev guidelines.
-- You want a clear, actionable next step.
+- Your team needs shared frontend implementation standards.
+- UI quality and code patterns vary across contributors.
+
+## Workflow
+
+1. Define architecture conventions for components, state, and data fetching.
+2. Set rules for accessibility, responsiveness, and UX consistency.
+3. Establish performance and bundle-size guardrails.
+4. Specify testing expectations for unit/integration/e2e.
+5. Create PR review checklist and adoption rollout plan.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- Frontend guideline framework
+- Enforceable review checklist
+- Adoption strategy for existing code

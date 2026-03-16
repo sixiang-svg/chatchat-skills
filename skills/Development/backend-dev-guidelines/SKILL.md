@@ -1,20 +1,33 @@
 ---
 id: backend-dev-guidelines
 name: Backend Dev Guidelines
-description: Step-by-step guidance for backend dev guidelines.
+description: Establish practical backend engineering guidelines for APIs, data changes, testing, observability, and safe releases.
 category: Development
+requires: ["team backend stack", "current engineering pain points", "service codebase context"]
+examples:
+  - "Create backend development guidelines for our Node.js services with standards for APIs, tests, and observability."
+  - "Given these recurring incidents, define coding and release guidelines to reduce regressions."
 ---
 
 # Backend Dev Guidelines
 
-Support backend dev guidelines workflows with clear steps and best practices.
+Define standards that make backend delivery consistent, reliable, and easier to review.
 
 ## When to Use
 
-- You need help with backend dev guidelines.
-- You want a clear, actionable next step.
+- Your team needs shared backend conventions.
+- Quality and release outcomes vary across services or contributors.
+
+## Workflow
+
+1. Identify stack-specific conventions (API design, error handling, data access).
+2. Define minimum testing expectations by change type.
+3. Specify migration safety rules and backward-compatibility policy.
+4. Set observability standards (logs, metrics, traces, alerts).
+5. Add review checklist items and release readiness gates.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- Backend guideline document outline
+- Enforceable checklist for PR reviews
+- Rollout plan for team adoption

@@ -4,7 +4,9 @@ name: GH Issues
 description: Manage GitHub issues with structured triage, prioritization, assignment, and status tracking.
 category: Development
 requires:
-  - github
+  - repository owner/name
+  - issue triage scope (labels/priorities)
+  - backlog timeframe or milestone window
 examples:
   - Triage open GitHub issues and propose labels, priorities, and owners.
   - Create an issue management workflow with backlog, in-progress, and done states.

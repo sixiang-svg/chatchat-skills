@@ -3,7 +3,10 @@ id: parallel-feature-development
 name: Parallel Feature Development
 description: Coordinate multiple in-flight features with branch strategy, dependency sequencing, and integration checkpoints that reduce merge risk. Use when several related features must ship concurrently without destabilizing the main branch.
 category: Development
-requires: []
+requires:
+  - feature branch list and dependency map
+  - target release window and merge policy
+  - required test suites and integration gates
 examples:
   - Plan parallel work for three related features without blocking releases.
   - Set up a branch and merge workflow that minimizes integration conflicts.

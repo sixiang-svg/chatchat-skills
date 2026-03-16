@@ -2,7 +2,7 @@
 id: woocommerce-markdown
 name: Woocommerce Markdown
 description: Step-by-step guidance for woocommerce markdown.
-category: Development
+category: Business
 ---
 
 # Woocommerce Markdown

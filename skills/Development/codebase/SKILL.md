@@ -3,7 +3,7 @@ id: codebase
 name: Codebase
 description: Practical workflow for understanding an unfamiliar codebase quickly and safely before making changes.
 category: Development
-requires: []
+requires: ["repository path or url", "target feature area", "intended change objective"]
 examples:
   - "Map this repository and tell me where authentication, API routes, and DB access live."
   - "I need to add a feature fast; give me a codebase walk-through and risk areas first."

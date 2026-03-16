@@ -3,7 +3,10 @@ id: typescript-review
 name: TypeScript Review
 description: Review TypeScript code for type safety, API correctness, maintainability, and testability using pragmatic engineering checks.
 category: Development
-requires: []
+requires:
+  - pull request diff or changed TypeScript files
+  - tsconfig or strictness rules in scope
+  - public API compatibility expectations
 examples:
   - Review this TypeScript change and identify type-safety risks.
   - Create a TypeScript review checklist for strict typing and maintainability.
