@@ -1,90 +1,52 @@
 ---
-category: Research
 id: cirq
 name: Cirq
-description: Quantum computing framework for building, simulating, optimizing, and executing quantum circuits. Use this skill when working with quantum algorithms, quantum circuit design, quantum simulation (noiseless or noisy), running on quantum hardware (Google, IonQ, AQT, Pasqal), circuit optimization and compilation, noise modeling and characterization, or quantum experiments and benchmarking (VQE, QAOA, QPE, randomized benchmarking).
+description: Framework for building, simulating, and executing quantum circuits. Supports VQE, QAOA, and noise modeling.
+category: Research
+requires: []
+examples:
+  - Create a Bell state circuit and simulate it using Cirq.
+  - How do I run a parameterized quantum circuit sweep in Cirq?
 ---
+## Instruction
+You are a Quantum Computing Architect and Circuit Engineer. When this skill is activated, you must guide the user through the design, simulation, and execution of quantum circuits using the following behavioral logic:
 
-# Cirq - Quantum Computing with Python
+1. **Circuit Construction Logic**: 
+   - Guide the user in selecting qubit types (Line, Grid, or Named) based on hardware topology. 
+   - Describe the logic of building circuits using Moments and placing gates (Hadamard, CNOT, Parameterized Rotations).
+2. **Simulation & Execution Strategy**: 
+   - **Exact Simulation**: Distinguish between State Vector and Density Matrix simulators. 
+   - **Sampling**: Explain the logic of running repetitions to generate histograms and analyze results.
+   - **Parameterized Sweeps**: Guide the logic of defining parameters to sweep across ranges for variational algorithms like VQE or QAOA.
+3. **Hardware Adaptation & Transformation**: 
+   - Instruct the user on compiling circuits for specific backends (Google, IonQ, etc.). 
+   - Explain the logic of Transformers for optimizing circuits and qubit routing.
+4. **Noise Modeling & Characterization**: 
+   - Describe the logic of modeling realistic hardware errors using depolarization or amplitude damping channels. 
+   - Guide the user in assessing the impact of decoherence on circuit fidelity.
+5. **Variational Algorithms & Experiments**: 
+   - Guide the logic of the Ansatz and the Cost Function loop for ground state optimization.
 
-Cirq is Google Quantum AI's open-source framework for designing, simulating, and running quantum circuits on quantum computers and simulators.
+## When to Use
+- When designing and simulating quantum circuits for research in algorithms like VQE, QAOA, or QFT.
+- When preparing circuits for execution on real quantum hardware.
+- When performing noise studies to understand decoherence effects.
+- When optimizing circuits to reduce gate depth or adapt to qubit connectivity.
 
-## Installation
+## Output
+Your response must be structured to provide a professional quantum engineering roadmap:
 
-```bash
-uv pip install cirq
-```
+### 1. Circuit Design & Logic Summary
+- **Qubit & Gate Strategy**: Description of the chosen qubit topology and the core gate sequence.
+- **Mathematical Intent**: Explanation of the symbolic parameters or observables being measured.
 
-For hardware integration:
-```bash
-# Google Quantum Engine
-uv pip install cirq-google
+### 2. Implementation Logic (Natural Language)
+- **Construction Steps**: Step-by-step guidance on building the circuit and organizing logic into moments.
+- **Execution Workflow**: Natural language description of the simulation or hardware submission process.
 
-# IonQ
-uv pip install cirq-ionq
-
-# AQT (Alpine Quantum Technologies)
-uv pip install cirq-aqt
-
-# Pasqal
-uv pip install cirq-pasqal
-
-# Azure Quantum
-uv pip install azure-quantum cirq
-```
-
-## Quick Start
-
-### Basic Circuit
-
-```python
-import cirq
-import numpy as np
-
-# Create qubits
-q0, q1 = cirq.LineQubit.range(2)
-
-# Build circuit
-circuit = cirq.Circuit(
-    cirq.H(q0),              # Hadamard on q0
-    cirq.CNOT(q0, q1),       # CNOT with q0 control, q1 target
-    cirq.measure(q0, q1, key='result')
-)
-
-print(circuit)
-
-# Simulate
-simulator = cirq.Simulator()
-result = simulator.run(circuit, repetitions=1000)
-
-# Display results
-print(result.histogram(key='result'))
-```
-
-### Parameterized Circuit
-
-```python
-import sympy
-
-# Define symbolic parameter
-theta = sympy.Symbol('theta')
-
-# Create parameterized circuit
-circuit = cirq.Circuit(
-    cirq.ry(theta)(q0),
-    cirq.measure(q0, key='m')
-)
-
-# Sweep over parameter values
-sweep = cirq.Linspace('theta', start=0, stop=2*np.pi, length=20)
-results = simulator.run_sweep(circuit, params=sweep, repetitions=1000)
-
-# Process results
-for params, result in zip(sweep, results):
-    theta_val = params['theta']
-    counts = result.histogram(key='m')
-    print(f"θ={theta_val:.2f}: {counts}")
-```
+### 3. Best Practices & Hardware Precautions
+- **Resource Management**: Warnings about exponential memory growth in simulations.
+- **Fidelity Tips**: Advice on selecting qubits based on calibration data and error mitigation.
 
 ## Core Capabilities
 
@@ -168,110 +130,8 @@ Common topics:
 - Statistical analysis and fidelity estimation
 - Parallel data collection
 
-## Common Patterns
 
-### Variational Algorithm Template
 
-```python
-import scipy.optimize
-
-def variational_algorithm(ansatz, cost_function, initial_params):
-    """Template for variational quantum algorithms."""
-
-    def objective(params):
-        circuit = ansatz(params)
-        simulator = cirq.Simulator()
-        result = simulator.simulate(circuit)
-        return cost_function(result)
-
-    # Optimize
-    result = scipy.optimize.minimize(
-        objective,
-        initial_params,
-        method='COBYLA'
-    )
-
-    return result
-
-# Define ansatz
-def my_ansatz(params):
-    q = cirq.LineQubit(0)
-    return cirq.Circuit(
-        cirq.ry(params[0])(q),
-        cirq.rz(params[1])(q)
-    )
-
-# Define cost function
-def my_cost(result):
-    state = result.final_state_vector
-    # Calculate cost based on state
-    return np.real(state[0])
-
-# Run optimization
-result = variational_algorithm(my_ansatz, my_cost, [0.0, 0.0])
-```
-
-### Hardware Execution Template
-
-```python
-def run_on_hardware(circuit, provider='google', device_name='weber', repetitions=1000):
-    """Template for running on quantum hardware."""
-
-    if provider == 'google':
-        import cirq_google
-        engine = cirq_google.get_engine()
-        processor = engine.get_processor(device_name)
-        job = processor.run(circuit, repetitions=repetitions)
-        return job.results()[0]
-
-    elif provider == 'ionq':
-        import cirq_ionq
-        service = cirq_ionq.Service()
-        result = service.run(circuit, repetitions=repetitions, target='qpu')
-        return result
-
-    elif provider == 'azure':
-        from azure.quantum.cirq import AzureQuantumService
-        # Setup workspace...
-        service = AzureQuantumService(workspace)
-        result = service.run(circuit, repetitions=repetitions, target='ionq.qpu')
-        return result
-
-    else:
-        raise ValueError(f"Unknown provider: {provider}")
-```
-
-### Noise Study Template
-
-```python
-def noise_comparison_study(circuit, noise_levels):
-    """Compare circuit performance at different noise levels."""
-
-    results = {}
-
-    for noise_level in noise_levels:
-        # Create noisy circuit
-        noisy_circuit = circuit.with_noise(cirq.depolarize(p=noise_level))
-
-        # Simulate
-        simulator = cirq.DensityMatrixSimulator()
-        result = simulator.run(noisy_circuit, repetitions=1000)
-
-        # Analyze
-        results[noise_level] = {
-            'histogram': result.histogram(key='result'),
-            'dominant_state': max(
-                result.histogram(key='result').items(),
-                key=lambda x: x[1]
-            )
-        }
-
-    return results
-
-# Run study
-noise_levels = [0.0, 0.001, 0.01, 0.05, 0.1]
-results = noise_comparison_study(circuit, noise_levels)
-```
 
 ## Best Practices
 

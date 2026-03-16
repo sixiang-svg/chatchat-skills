@@ -1,9 +1,79 @@
 ---
-category: Research
 id: chroma
 name: Chroma
-description: This skill should be used when working with genomic interval data (BED files) for machine learning tasks. Use for training region embeddings (Region2Vec, BEDspace), single-cell ATAC-seq analysis (scEmbed), building consensus peaks (universes), or any ML-based analysis of genomic regions. Applies to BED file collections, scATAC-seq data, chromatin accessibility datasets, and region-based genomic feature learning.
+description: Genomic interval ML for BED files. Use for region embeddings (Region2Vec), scATAC-seq analysis, and consensus peaks.
+category: Research
+requires: []
+examples:
+  - Train a Region2Vec model on my collection of BED files.
+  - Generate cell embeddings for this scATAC-seq dataset using scEmbed.
 ---
+## Instruction
+You are a Genomic Interval Machine Learning Expert. When this skill is activated, you must guide the user through building and applying ML models to genomic data (BED files) using the following behavioral logic:
+
+1. **Embedding Logic (Region2Vec)**: 
+   - Guide the user in learning unsupervised representations of genomic regions. 
+   - Explain the logic of Tokenization using a "Universe" reference dictionary.
+   - Describe training Region2Vec models to capture regional co-occurrence.
+2. **Single-Cell Chromatin Analysis (scEmbed)**:
+   - For scATAC-seq data, guide the logic of training models on cell-level tokens to generate low-dimensional cell embeddings.
+   - Integrate with downstream clustering logic (e.g., Leiden or UMAP).
+3. **Joint Embedding (BEDspace)**:
+   - Instruct the user on training shared spaces for both genomic regions and metadata labels. 
+   - Explain how to perform cross-modal queries (e.g., searching for regions associated with a specific condition).
+4. **Universe Building & Consensus**:
+   - Describe the statistical logic of building reference universes from BED collections using methods like Coverage Cutoff (CC) or HMM.
+5. **Quality & Utility Management**: 
+   - Advise on using evaluation metrics (e.g., Silhouette scores) to validate embedding quality.
+   - Guide the logic of genomic randomization (BEDshift) for statistical testing.
+
+
+## When to Use Which Tool
+
+**Use Region2Vec when:**
+- Working with bulk genomic data (ChIP-seq, ATAC-seq, etc.)
+- Need unsupervised embeddings without metadata
+- Comparing region sets across experiments
+- Building features for downstream supervised learning
+
+**Use BEDspace when:**
+- Metadata labels available (cell types, tissues, conditions)
+- Need to query regions by metadata or vice versa
+- Want joint embedding space for regions and labels
+- Building searchable genomic databases
+
+**Use scEmbed when:**
+- Analyzing single-cell ATAC-seq data
+- Clustering cells by chromatin accessibility
+- Annotating cell types from scATAC-seq
+- Integration with scanpy is desired
+
+**Use Universe Building when:**
+- Need reference peak sets for tokenization
+- Combining multiple experiments into consensus
+- Want statistically rigorous region definitions
+- Building standard references for a project
+
+**Use Utilities when:**
+- Need to cache remote BED files (BBClient)
+- Generating null models for statistics (BEDshift)
+- Evaluating embedding quality (Evaluation)
+- Building search interfaces (Text2BedNN)
+
+## Output
+Your response must be structured to provide a comprehensive genomic ML roadmap:
+
+### 1. Model Strategy & Workflow Selection
+- **Task Identification**: Selection between Region2Vec, scEmbed, or BEDspace based on input data and goals.
+- **Universe Rationale**: Advice on selecting the most appropriate reference peak set for tokenization.
+
+### 2. Implementation Logic (Natural Language)
+- **Preprocessing & Tokenization**: Step-by-step guidance on preparing BED files and converting them into tokenized formats.
+- **Training Parameters**: Logic for selecting embedding dimensions and training epochs.
+
+### 3. Best Practices & Performance Tips
+- **Coverage Validation**: Reminders to check tokenization coverage against the genome assembly.
+- **Computational Efficiency**: Advice on memory management for large-scale datasets.
 
 # Geniml: Genomic Interval Machine Learning
 
@@ -109,146 +179,8 @@ Additional tools for caching, randomization, evaluation, and search.
 
 **Reference:** See `references/utilities.md` for detailed usage of each utility.
 
-## Common Workflows
 
-### Basic Region Embedding Pipeline
 
-```python
-from geniml.tokenization import hard_tokenization
-from geniml.region2vec import region2vec
-from geniml.evaluation import evaluate_embeddings
-
-# Step 1: Tokenize BED files
-hard_tokenization(
-    src_folder='bed_files/',
-    dst_folder='tokens/',
-    universe_file='universe.bed',
-    p_value_threshold=1e-9
-)
-
-# Step 2: Train Region2Vec
-region2vec(
-    token_folder='tokens/',
-    save_dir='model/',
-    num_shufflings=1000,
-    embedding_dim=100
-)
-
-# Step 3: Evaluate
-metrics = evaluate_embeddings(
-    embeddings_file='model/embeddings.npy',
-    labels_file='metadata.csv'
-)
-```
-
-### scATAC-seq Analysis Pipeline
-
-```python
-import scanpy as sc
-from geniml.scembed import ScEmbed
-from geniml.io import tokenize_cells
-
-# Step 1: Load data
-adata = sc.read_h5ad('scatac_data.h5ad')
-
-# Step 2: Tokenize cells
-tokenize_cells(
-    adata='scatac_data.h5ad',
-    universe_file='universe.bed',
-    output='tokens.parquet'
-)
-
-# Step 3: Train scEmbed
-model = ScEmbed(embedding_dim=100)
-model.train(dataset='tokens.parquet', epochs=100)
-
-# Step 4: Generate embeddings
-embeddings = model.encode(adata)
-adata.obsm['scembed_X'] = embeddings
-
-# Step 5: Cluster with scanpy
-sc.pp.neighbors(adata, use_rep='scembed_X')
-sc.tl.leiden(adata)
-sc.tl.umap(adata)
-```
-
-### Universe Building and Evaluation
-
-```bash
-# Generate coverage
-cat bed_files/*.bed > combined.bed
-uniwig -m 25 combined.bed chrom.sizes coverage/
-
-# Build universe with coverage cutoff
-geniml universe build cc \
-  --coverage-folder coverage/ \
-  --output-file universe.bed \
-  --cutoff 5 \
-  --merge 100 \
-  --filter-size 50
-
-# Evaluate universe quality
-geniml universe evaluate \
-  --universe universe.bed \
-  --coverage-folder coverage/ \
-  --bed-folder bed_files/
-```
-
-## CLI Reference
-
-Geniml provides command-line interfaces for major operations:
-
-```bash
-# Region2Vec training
-geniml region2vec --token-folder tokens/ --save-dir model/ --num-shuffle 1000
-
-# BEDspace preprocessing
-geniml bedspace preprocess --input regions/ --metadata labels.csv --universe universe.bed
-
-# BEDspace training
-geniml bedspace train --input preprocessed.txt --output model/ --dim 100
-
-# BEDspace search
-geniml bedspace search -t r2l -d distances.pkl -q query.bed -n 10
-
-# Universe building
-geniml universe build cc --coverage-folder coverage/ --output universe.bed --cutoff 5
-
-# BEDshift randomization
-geniml bedshift --input peaks.bed --genome hg38 --preserve-chrom --iterations 100
-```
-
-## When to Use Which Tool
-
-**Use Region2Vec when:**
-- Working with bulk genomic data (ChIP-seq, ATAC-seq, etc.)
-- Need unsupervised embeddings without metadata
-- Comparing region sets across experiments
-- Building features for downstream supervised learning
-
-**Use BEDspace when:**
-- Metadata labels available (cell types, tissues, conditions)
-- Need to query regions by metadata or vice versa
-- Want joint embedding space for regions and labels
-- Building searchable genomic databases
-
-**Use scEmbed when:**
-- Analyzing single-cell ATAC-seq data
-- Clustering cells by chromatin accessibility
-- Annotating cell types from scATAC-seq
-- Integration with scanpy is desired
-
-**Use Universe Building when:**
-- Need reference peak sets for tokenization
-- Combining multiple experiments into consensus
-- Want statistically rigorous region definitions
-- Building standard references for a project
-
-**Use Utilities when:**
-- Need to cache remote BED files (BBClient)
-- Generating null models for statistics (BEDshift)
-- Evaluating embedding quality (Evaluation)
-- Building search interfaces (Text2BedNN)
 
 ## Best Practices
 

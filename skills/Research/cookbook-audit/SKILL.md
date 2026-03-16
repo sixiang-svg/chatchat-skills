@@ -1,8 +1,12 @@
 ---
-category: Research
 id: cookbook-audit
 name: Cookbook Audit
-description: Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.
+description: Audit Anthropic Cookbook notebooks based on narrative, code quality, and technical accuracy rubrics.
+category: Research
+requires: []
+examples:
+  - Audit this Anthropic Cookbook notebook against the narrative quality rubric.
+  - Run automated secrets detection and style checks on my notebook.
 ---
 
 # Cookbook Audit
@@ -18,6 +22,12 @@ The style guide provides detailed templates and examples for:
 - Conclusions that map back to learning objectives
 
 **IMPORTANT**: Always read `style_guide.md` first before conducting an audit. The style guide contains the canonical templates and good/bad examples to reference.
+
+
+## When to Use
+- When reviewing or improving an Anthropic Cookbook notebook or a similar educational coding tutorial.
+- When ensuring a notebook follows best practices for narrative quality, technical accuracy, and code presentation.
+- When conducting an automated or manual audit for security (secrets detection) and style guide compliance.
 
 ## Workflow
 

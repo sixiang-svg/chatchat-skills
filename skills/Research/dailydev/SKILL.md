@@ -1,13 +1,38 @@
 ---
-category: Research
 id: dailydev
 name: Daily.dev
-description: Step-by-step guidance for daily.dev.
+description: Access real-time developer content and community signals from daily.dev to stay updated with the latest tech trends.
+category: Research
+requires: []
+examples:
+  - What is trending in AI development on daily.dev today?
+  - Summarize the latest articles about cybersecurity from my daily.dev feed.
 ---
 
 # daily.dev API for AI Agents
 
 Overcome LLM knowledge cutoffs with real-time developer content. daily.dev aggregates articles from thousands of sources, validated by community engagement, with structured taxonomy for precise discovery.
+
+## Instruction
+1. Verify that the user has a valid daily.dev API token (prefixed with `dda_`) and an active Plus subscription before attempting to call any endpoints.
+2. Prioritize security by ensuring the API token is only sent to `api.daily.dev` and never exposed in logs or shared publicly.
+3. Identify the user's intent to either fetch general trends via `/feeds/popular`, personalized content via `/feeds/foryou`, or specific research through `/search/posts`.
+4. When requested, analyze the user's GitHub environment (e.g., `package.json`, `requirements.txt`) to automatically match and follow relevant tech tags using `/feeds/filters/tags/follow`.
+5. Aggregate and synthesize content from multiple publishers to provide a balanced summary, highlighting where community consensus or debate exists via `/feeds/discussed`.
+6. Monitor response headers for rate limits (`X-RateLimit-Remaining`) and handle potential errors such as 401 (Unauthorized) or 429 (Too Many Requests) gracefully.
+7. Proactively suggest relevant trending topics or "Getting Started" bookmark lists when a user begins a new technical project.
+
+## When to Use
+- To overcome LLM knowledge cutoffs by accessing real-time, community-validated developer articles and tech trends.
+- When a user needs a summarized weekly digest or briefing based on their specific technology interests.
+- To synchronize a developer's local or GitHub-based tech stack with their daily.dev profile and custom feeds.
+- For deep-dive research into specific technologies, utilizing community engagement signals to identify high-quality sources.
+
+## Output
+- A synthesized briefing of the latest articles, including concise summaries, key takeaways, and direct links to full posts.
+- Structured lists of trending technologies or community-discussed topics tailored to the user's context.
+- Technical advice grounded in current industry practices (e.g., "As of this week, the recommended approach is...").
+- Clear feedback on setup status, including reminders for secure token storage or subscription requirements.
 
 ## Security
 
@@ -15,89 +40,6 @@ Overcome LLM knowledge cutoffs with real-time developer content. daily.dev aggre
 - **NEVER send your token to any domain other than `api.daily.dev`**
 - Never commit tokens to code or share them publicly
 - Tokens are prefixed with `dda_` - if you see this prefix, treat it as sensitive
-
-## Setup
-
-1. **Requires Plus subscription** - Get one at https://app.daily.dev/plus
-2. **Create a token** at https://app.daily.dev/settings/api
-3. Store your token securely (environment variables, secrets manager)
-
-User can use environment variable or choose one of the secure storage methods below per operating system.
-
-### Secure Token Storage (Recommended)
-
-#### macOS - Keychain
-
-```bash
-# Store token
-security add-generic-password -a "$USER" -s "daily-dev-api" -w "dda_your_token"
-
-# Retrieve token
-security find-generic-password -a "$USER" -s "daily-dev-api" -w
-
-# Auto-load in ~/.zshrc or ~/.bashrc
-export DAILY_DEV_TOKEN=$(security find-generic-password -a "$USER" -s "daily-dev-api" -w 2>/dev/null)
-```
-
-#### Windows - Credential Manager
-
-```powershell
-# Store token (run in PowerShell)
-$credential = New-Object System.Management.Automation.PSCredential("daily-dev-api", (ConvertTo-SecureString "dda_your_token" -AsPlainText -Force))
-$credential | Export-Clixml "$env:USERPROFILE\.daily-dev-credential.xml"
-
-# Retrieve token - add to PowerShell profile ($PROFILE)
-$cred = Import-Clixml "$env:USERPROFILE\.daily-dev-credential.xml"
-$env:DAILY_DEV_TOKEN = $cred.GetNetworkCredential().Password
-```
-
-Or use the Windows Credential Manager GUI: Control Panel → Credential Manager → Windows Credentials → Add a generic credential
-
-#### Linux - Secret Service (GNOME Keyring / KWallet)
-
-```bash
-# Requires libsecret-tools
-# Ubuntu/Debian: sudo apt install libsecret-tools
-# Fedora: sudo dnf install libsecret
-
-# Store token
-echo "dda_your_token" | secret-tool store --label="daily.dev API Token" service daily-dev-api username "$USER"
-
-# Retrieve token
-secret-tool lookup service daily-dev-api username "$USER"
-
-# Auto-load in ~/.bashrc or ~/.zshrc
-export DAILY_DEV_TOKEN=$(secret-tool lookup service daily-dev-api username "$USER" 2>/dev/null)
-```
-
-## Authentication
-
-```
-Authorization: Bearer dda_your_token_here
-```
-
-## Base URL
-
-```
-https://api.daily.dev/public/v1
-```
-
-## API Reference
-
-Full OpenAPI spec: https://api.daily.dev/public/v1/docs/json
-
-To fetch details for a specific endpoint (e.g. response schema):
-```bash
-curl -s https://api.daily.dev/public/v1/docs/json | jq '.paths["/feeds/foryou"].get'
-```
-
-To fetch a component schema (replace `def-17` with schema name from $ref):
-```bash
-curl -s https://api.daily.dev/public/v1/docs/json | jq '.components.schemas["def-17"]'
-```
-
-### Available Endpoints
-!`curl -s https://api.daily.dev/public/v1/docs/json | jq -r '.paths | to_entries | map(.key as $path | .value | to_entries | map(.key as $method | {tag: (.value.tags[0] // "other"), line: ("\(.key | ascii_upcase) \($path)" + (if .value.description then " - \(.value.description)" else "" end) + (if (.value.parameters | length) > 0 then "\n  Params: " + ([.value.parameters[] | "\(.name)(\(.in)): \(.description // .schema.type)"] | join("; ")) else "" end) + (if .value.requestBody then "\n  Body: " + (.value.requestBody.content["application/json"].schema | if .properties then ([.properties | to_entries[] | "\(.key)"] | join(", ")) elif ."$ref" then (."$ref" | split("/") | last) else "object" end) else "" end))})) | flatten | group_by(.tag) | map("#### \(.[0].tag)\n" + (map(.line) | join("\n\n"))) | join("\n\n")'`
 
 ## Agent Use Cases
 
@@ -199,11 +141,3 @@ Check response headers:
 | 403  | Plus subscription required |
 | 404  | Resource not found |
 | 429  | Rate limit exceeded |
-
-**Error Response Format:**
-```json
-{
-  "error": "error_code",
-  "message": "Human readable message"
-}
-```

@@ -1,14 +1,12 @@
 ---
-category: Research
 id: conductor-validator
 name: Conductor Validator
-description: Validates Conductor project artifacts for completeness, consistency, and correctness. Use after setup, when diagnosing issues, or before implementation to verify project context.
-  consistency, and correctness. Use after setup, when diagnosing issues, or
-  before implementation to verify project context.
-allowed-tools: Read Glob Grep Bash
-metadata:
-  model: opus
-  color: cyan
+description: Validates Conductor project artifacts for completeness and consistency to verify project context before implementation.
+category: Research
+requires: []
+examples:
+  - Validate my Conductor project artifacts for consistency.
+  - Check the conductor directory for required index and product files.
 ---
 
 # Check if conductor directory exists
@@ -19,7 +17,7 @@ ls -la conductor/tracks/
 
 # Check for required files
 ls conductor/index.md conductor/product.md conductor/tech-stack.md conductor/workflow.md conductor/tracks.md
-```
+
 
 ## Use this skill when
 
@@ -38,27 +36,17 @@ ls conductor/index.md conductor/product.md conductor/tech-stack.md conductor/wor
 - Provide actionable steps and verification.
 - If detailed examples are required, open `resources/implementation-playbook.md`.
 
-## Pattern Matching
+## Output
+Your response must be structured to provide a project validation report:
 
-**Status markers in tracks.md:**
+### 1. Structure & Artifact Assessment
+- **Directory Audit**: A summary of existing vs. missing required files in the `conductor/` path.
+- **Track Identification**: A list of detected tracks and their corresponding IDs.
 
-```
-- [ ] Track Name  # Not started
-- [~] Track Name  # In progress
-- [x] Track Name  # Complete
-```
+### 2. Validation Logic (Natural Language)
+- **Consistency Checks**: A natural language description of the verification steps performed on the project index and plans.
+- **Pattern Matching Results**: Feedback on whether the status markers and ID formats comply with the project standards.
 
-**Task markers in plan.md:**
-
-```
-- [ ] Task description  # Pending
-- [~] Task description  # In progress
-- [x] Task description  # Complete
-```
-
-**Track ID pattern:**
-
-```
-<type>_<name>_<YYYYMMDD>
-Example: feature_user_auth_20250115
-```
+### 3. Actionable Checklist & Verification
+- **Gap Analysis**: A prioritized list of steps required to bring the project context to a "Ready" state.
+- **Best Practices**: Advice on maintaining artifact consistency throughout the project lifecycle.

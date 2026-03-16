@@ -1,8 +1,12 @@
 ---
-category: Research
 id: clinvar-database
 name: Clinvar Database
-description: Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP, annotate VCFs, for genomic medicine.
+description: Query NCBI ClinVar for variant clinical significance, pathogenicity classifications, and genomic medicine annotations.
+category: Research
+requires: []
+examples:
+  - Search ClinVar for pathogenic variants in the BRCA1 gene.
+  - Annotate my VCF file with ClinVar pathogenicity classifications.
 ---
 
 # ClinVar Database
@@ -10,6 +14,23 @@ description: Query NCBI ClinVar for variant clinical significance. Search by gen
 ## Overview
 
 ClinVar is NCBI's freely accessible archive of reports on relationships between human genetic variants and phenotypes, with supporting evidence. The database aggregates information about genomic variation and its relationship to human health, providing standardized variant classifications used in clinical genetics and research.
+
+## Instruction
+You are a Genomic Variant Interpretation Specialist. When this skill is activated, you must guide the user through searching and interpreting NCBI's ClinVar database using the following behavioral logic:
+
+1. **Variant & Phenotype Query Logic**: 
+    - Guide the user in searching by gene (e.g., `BRCA1[gene]`), clinical significance (e.g., `pathogenic[CLNSIG]`), or specific disorder.
+    - Instruct on using combined Boolean searches to isolate high-confidence variants.
+2. **Interpretation & Star Ratings**: 
+    - Explain the logic of clinical significance classifications (Pathogenic, Benign, VUS) based on ACMG/AMP guidelines.
+    - Emphasize the "Review Status" (star ratings), prioritizing expert panels (3 stars) and practice guidelines (4 stars).
+3. **Programmatic API (E-utilities)**: 
+    - Describe the logic for using `esearch`, `esummary`, and `efetch` to programmatically retrieve variant metadata and full XML records.
+    - Advise on rate-limit management and the use of API keys to increase request speed.
+4. **Bulk Data & Annotation Pipeline**: 
+    - Guide the logic of downloading datasets from the FTP site in XML, VCF, or Tab-delimited formats.
+    - Explain the natural language logic for annotating VCF files using tools like `bcftools` to add clinical significance to variant call sets.
+5. **Conflict Resolution Strategy**: Describe the logic for evaluating "Conflicting Interpretations," considering submission dates, star ratings, and supporting evidence.
 
 ## When to Use This Skill
 
@@ -22,6 +43,21 @@ This skill should be used when:
 - Understanding review status and star ratings
 - Resolving conflicting variant interpretations
 - Annotating variant call sets with clinical significance
+
+## Output
+Your response must be structured as follows:
+
+### 1. Variant Profile & Significance
+- **Variant Identification**: Summary of the gene, coordinate, and primary classification.
+- **Review Status**: Clear statement of the star rating and confidence level.
+
+### 2. Implementation Logic (Natural Language)
+- **Search & Retrieval Flow**: Step-by-step guidance on identifying the variant through the web interface or API.
+- **Annotation Roadmap**: A natural language description of how to integrate ClinVar data into a local analysis pipeline.
+
+### 3. Best Practices & Quality Control
+- **Conflict Handling**: Advice on weightage given to specific submitters.
+- **Update Awareness**: Reminders about the monthly/weekly release cycle of ClinVar data.
 
 ## Core Capabilities
 
@@ -129,75 +165,15 @@ wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz
 
 Process XML files to extract variant details, classifications, and evidence.
 
-**Python example with xml.etree:**
-```python
-import gzip
-import xml.etree.ElementTree as ET
-
-with gzip.open('ClinVarVariationRelease.xml.gz', 'rt') as f:
-    for event, elem in ET.iterparse(f, events=('end',)):
-        if elem.tag == 'VariationArchive':
-            variation_id = elem.attrib.get('VariationID')
-            # Extract clinical significance, review status, etc.
-            elem.clear()  # Free memory
-```
 
 #### Working with VCF Files
 
 Annotate variant calls or filter by clinical significance using bcftools or Python.
 
-**Using bcftools:**
-```bash
-# Filter pathogenic variants
-bcftools view -i 'INFO/CLNSIG~"Pathogenic"' clinvar.vcf.gz
-
-# Extract specific genes
-bcftools view -i 'INFO/GENEINFO~"BRCA"' clinvar.vcf.gz
-
-# Annotate your VCF with ClinVar
-bcftools annotate -a clinvar.vcf.gz -c INFO your_variants.vcf
-```
-
-**Using PyVCF in Python:**
-```python
-import vcf
-
-vcf_reader = vcf.Reader(filename='clinvar.vcf.gz')
-for record in vcf_reader:
-    clnsig = record.INFO.get('CLNSIG', [])
-    if 'Pathogenic' in clnsig:
-        gene = record.INFO.get('GENEINFO', [''])[0]
-        print(f"{record.CHROM}:{record.POS} {gene} - {clnsig}")
-```
-
 #### Working with Tab-Delimited Files
 
 Use pandas or command-line tools for rapid filtering and analysis.
 
-**Using pandas:**
-```python
-import pandas as pd
-
-# Load variant summary
-df = pd.read_csv('variant_summary.txt.gz', sep='\t', compression='gzip')
-
-# Filter pathogenic variants in specific gene
-pathogenic_brca = df[
-    (df['GeneSymbol'] == 'BRCA1') &
-    (df['ClinicalSignificance'].str.contains('Pathogenic', na=False))
-]
-
-# Count variants by clinical significance
-sig_counts = df['ClinicalSignificance'].value_counts()
-```
-
-**Using command-line tools:**
-```bash
-# Extract pathogenic variants for specific gene
-zcat variant_summary.txt.gz | \
-  awk -F'\t' '$7=="TP53" && $13~"Pathogenic"' | \
-  cut -f1,5,7,13,14
-```
 
 ### 5. Handle Conflicting Interpretations
 
@@ -211,10 +187,6 @@ When multiple submitters provide different classifications for the same variant,
 5. Consult expert panel classifications (★★★) when available
 6. For clinical use, always defer to a genetics professional
 
-**Search query to exclude conflicts:**
-```
-TP53[gene] AND pathogenic[CLNSIG] NOT conflicting[RVSTAT]
-```
 
 ### 6. Track Classification Updates
 
@@ -237,8 +209,8 @@ Variant classifications may change over time as new evidence emerges.
 Organizations can submit variant interpretations to ClinVar.
 
 **Submission methods:**
-- Web submission portal: https://submit.ncbi.nlm.nih.gov/subs/clinvar/
-- API submission (requires service account): See `references/api_reference.md`
+- Web submission portal
+- API submission (requires service account)
 - Batch submission via Excel templates
 
 **Requirements:**
@@ -256,9 +228,6 @@ Contact: clinvar@ncbi.nlm.nih.gov for submission account setup.
 
 **Steps:**
 1. Search using web interface or E-utilities:
-   ```
-   CFTR[gene] AND pathogenic[CLNSIG] AND (reviewed by expert panel[RVSTAT] OR practice guideline[RVSTAT])
-   ```
 2. Review results, noting review status (should be ★★★ or ★★★★)
 3. Export variant list or retrieve full records via efetch
 4. Cross-reference with clinical presentation if applicable
@@ -269,21 +238,11 @@ Contact: clinvar@ncbi.nlm.nih.gov for submission account setup.
 
 **Steps:**
 1. Download appropriate ClinVar VCF (match genome build: GRCh37 or GRCh38):
-   ```bash
-   wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz
-   wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz.tbi
-   ```
+
 2. Annotate using bcftools:
-   ```bash
-   bcftools annotate -a clinvar.vcf.gz \
-     -c INFO/CLNSIG,INFO/CLNDN,INFO/CLNREVSTAT \
-     -o annotated_variants.vcf \
-     your_variants.vcf
-   ```
+
 3. Filter annotated VCF for pathogenic variants:
-   ```bash
-   bcftools view -i 'INFO/CLNSIG~"Pathogenic"' annotated_variants.vcf
-   ```
+
 
 ### Example 3: Analyze Variants for a Specific Disease
 
@@ -305,9 +264,6 @@ Contact: clinvar@ncbi.nlm.nih.gov for submission account setup.
 
 **Steps:**
 1. Download monthly release for reproducibility:
-   ```bash
-   wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/xml/clinvar_variation/ClinVarVariationRelease_YYYY-MM.xml.gz
-   ```
 2. Parse XML and load into database (PostgreSQL, MySQL, MongoDB)
 3. Index by gene, position, clinical significance, review status
 4. Implement version tracking for updates
@@ -332,27 +288,3 @@ Contact: clinvar@ncbi.nlm.nih.gov for submission account setup.
 - **Rate limits on API** - 3 req/sec without key, 10 req/sec with API key
 - **File sizes** - Full XML releases are multi-GB compressed files
 - **No real-time updates** - Website updated weekly, FTP monthly/weekly
-
-## Resources
-
-### Reference Documentation
-
-This skill includes comprehensive reference documentation:
-
-- **`references/api_reference.md`** - Complete E-utilities API documentation with examples for esearch, esummary, efetch, and elink; includes rate limits, authentication, and Python/Biopython code samples
-
-- **`references/clinical_significance.md`** - Detailed guide to interpreting clinical significance classifications, review status star ratings, conflict resolution, and best practices for variant interpretation
-
-- **`references/data_formats.md`** - Documentation for XML, VCF, and tab-delimited file formats; FTP directory structure, processing examples, and format selection guidance
-
-### External Resources
-
-- ClinVar home: https://www.ncbi.nlm.nih.gov/clinvar/
-- ClinVar documentation: https://www.ncbi.nlm.nih.gov/clinvar/docs/
-- E-utilities documentation: https://www.ncbi.nlm.nih.gov/books/NBK25501/
-- ACMG variant interpretation guidelines: Richards et al., 2015 (PMID: 25741868)
-- ClinGen expert panels: https://clinicalgenome.org/
-
-### Contact
-
-For questions about ClinVar or data submission: clinvar@ncbi.nlm.nih.gov
