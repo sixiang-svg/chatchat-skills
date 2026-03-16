@@ -1,18 +1,39 @@
 ---
-category: Research
 id: update-flaky-tests
 name: Update Flaky Tests
-description: Update the flaky test tracker.
-allowed-tools: Read, Write, Bash, Glob
+description: Update and manage the flaky E2E test tracker to systematically log test failures unrelated to current work.
+category: Research
+requires: []
+examples:
+  - Log a new flaky E2E test failure for the user management flow.
+  - Show me the current status of all active flaky tests in the database.
 ---
 
 # Update Flaky Tests
 
 Track and manage flaky E2E test observations over time. This skill helps systematically log test failures that are unrelated to the current work, preserving error artifacts for later analysis.
 
+## Instruction
+- Read and initialize the flaky tests database using the standardized JSON schema.
+- Log new test failures by capturing critical context: test file, test name, specific step, browser environment, and the error pattern.
+- Attach and manage error artifacts (e.g., logs, screenshots) in the designated artifacts folder for future debugging.
+- Utilize local ISO 8601 timestamps for all log entries to ensure accurate cross-referencing with CI/CD events.
+- Update the status of existing entries from "active" to "archived" once a fix has been verified and applied.
+- Generate status reports summarizing the most frequent flaky tests and their impact on test suite reliability.
+
+## When to Use
+- When identifying non-deterministic E2E test failures that are unrelated to current code changes.
+- When maintaining a systematic historical record of test instability for long-term suite health analysis.
+- When collaborating with team members to prioritize and resolve recurring test bottlenecks.
+
+## Output
+- Updated flaky-tests.json database with new or modified entries.
+- Summarized test failure reports including error patterns and frequency metrics.
+- Structured data logs ready for visualization in engineering dashboards.
+
 ## STEP 1: Load Database
 
-Read the flaky tests database from `.workspace/flaky-tests/flaky-tests.json`.
+Read the flaky tests database 
 
 If the file or folder doesn't exist:
 1. Create the folder structure: `.workspace/flaky-tests/` and `.workspace/flaky-tests/artifacts/`
@@ -95,10 +116,6 @@ For each test failure you observed:
      - `commitHash`: The commit hash of the fix
      - `description`: Brief description of what was fixed
      - `appliedBy`: Your agent type
-
-### Status Mode (standalone check)
-
-Read `/.claude/skills/update-flaky-tests/status-output-sample.md` first. Output status as a markdown table matching that format. Sort by Count descending. Omit Archived section if empty. End with legend line, nothing after.
 
 ## STEP 5: Save Database
 

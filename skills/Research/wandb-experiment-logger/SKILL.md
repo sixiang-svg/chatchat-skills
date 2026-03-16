@@ -1,15 +1,14 @@
 ---
-category: Research
 id: wandb-experiment-logger
 name: WandB Experiment Logger
-description: Execute wandb experiment logger operations. Auto-activating skill for ML Training. Triggers on: wandb experiment logger, wandb experiment logger Part of the ML Training skill category.
-  Execute wandb experiment logger operations. Auto-activating skill for ML Training.
-  Triggers on: wandb experiment logger, wandb experiment logger
-  Part of the ML Training skill category. Use when working with wandb experiment logger functionality. Trigger with phrases like "wandb experiment logger", "wandb logger", "wandb".
-allowed-tools: "Read, Write, Edit, Bash(python:*), Bash(pip:*)"
+description: Execute Weights & Biases operations for ML training, covering data preparation, model training, and experiment tracking.
+category: Research
+author: Jeremy Longshore <jeremy@intentsolutions.io>
 version: 1.0.0
-license: MIT
-author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+requires: []
+examples:
+  - Initialize a Weights & Biases run for my training script.
+  - How do I log model artifacts and metrics to W&B?
 ---
 
 # Wandb Experiment Logger

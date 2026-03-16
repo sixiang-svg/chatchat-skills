@@ -1,9 +1,12 @@
 ---
-category: Research
 id: tracking-regression-tests
 name: Tracking Regression Tests
-description: This skill enables Claude to track and run regression tests, ensuring new changes don't break existing functionality. It is triggered when the user asks to "track regression", "run regression tests", or uses the shortcut "reg". The skill helps in maintaining code stability by identifying critical tests, automating their execution, and analyzing the impact of changes. It also provides insights into test history and identifies flaky tests. The skill uses the `regression-test-tracker` plugin.
-  This skill enables Claude to track and run regression tests, ensuring new changes don't break existing functionality. It is triggered when the user asks to "track regression", "run regression tests", or uses the shortcut "reg". The skill helps in maintaining code stability by identifying critical tests, automating their execution, and analyzing the impact of changes. It also provides insights into test history and identifies flaky tests. The skill uses the `regression-test-tracker` plugin.
+description: Track and run regression tests using the regression-test-tracker to ensure code stability and identify failures.
+category: Research
+requires: []
+examples:
+  - Run the regression test suite for the current development branch.
+  - Mark this specific unit test as a regression test for automated tracking.
 ---
 
 ## Overview
