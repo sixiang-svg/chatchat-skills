@@ -1,8 +1,12 @@
 ---
-category: Research
 id: appinsights-instrumentation
 name: AppInsights Instrumentation
-description: Step-by-step guidance for appinsights instrumentation.
+description: Step-by-step guidance for enabling Azure AppInsights telemetry in web applications.
+category: Research
+requires: []
+examples:
+  - How do I add AppInsights telemetry to my ASP.NET Core app?
+  - Show me the Bicep template for creating an AppInsights resource.
 ---
 
 # AppInsights instrumentation

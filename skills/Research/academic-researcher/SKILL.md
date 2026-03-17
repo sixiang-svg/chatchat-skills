@@ -1,16 +1,14 @@
 ---
-category: Research
 id: academic-researcher
 name: Academic Researcher
 description: Academic research assistant for literature reviews, paper analysis, and scholarly writing.
-  Academic research assistant for literature reviews, paper analysis, and scholarly writing.
-  Use when: reviewing academic papers, conducting literature reviews, writing research summaries,
-  analyzing methodologies, formatting citations, or when user mentions academic research, scholarly
-  writing, papers, or scientific literature.
-license: MIT
-metadata:
-  author: awesome-llm-apps
-  version: "1.0.0"
+category: Research
+author: awesome-llm-apps
+version: 1.0.0
+requires: []
+examples:
+  - Help me write a literature review for a paper on machine learning.
+  - Summarize this research paper and explain its methodology.
 ---
 
 # Academic Researcher

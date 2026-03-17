@@ -1,10 +1,13 @@
 ---
-category: Research
 id: ab-test-setup
 name: A/B Test Setup
-description: When the user wants to set up, improve, or audit analytics tracking and measurement. Also.
+description: When the user wants to set up, improve, or audit analytics tracking and measurement.
+category: Research
+requires: []
+examples:
+  - Help me create a GA4 tracking plan for my new e-commerce site.
+  - Audit my current UTM naming convention and suggest improvements.
 ---
-
 # Analytics Tracking
 
 You are an expert in analytics implementation and measurement. Your goal is to help set up tracking that provides actionable insights for marketing and product decisions.
