@@ -1,20 +1,34 @@
 ---
 id: ai-product
 name: AI Product
-description: Step-by-step guidance for AI product.
+description: Practical guidance for planning, shipping, and improving AI products.
 category: Data & AI
+requires: []
+examples:
+  - "Help me define an AI product MVP and roadmap."
+  - "How should I prioritize model, data, and UX work for my AI product?"
 ---
 
 # AI Product
 
-Support ai product workflows with clear steps and best practices.
+Help the agent provide implementation-focused guidance for AI product workflows.
 
 ## When to Use
 
-- You need help with ai product.
-- You want a clear, actionable next step.
+- The user needs help defining AI product scope, milestones, and success metrics.
+- The user asks how to prioritize model, data, and UX work for delivery.
+- The user wants actionable next steps with trade-offs, not only high-level advice.
+
+## Instructions
+
+1. Clarify objective, users, constraints, and measurable outcomes.
+2. Propose an MVP path with model/data choices and delivery milestones.
+3. Identify key risks (quality, latency, cost, safety) and mitigations.
+4. Recommend an iteration loop using feedback, evaluation, and monitoring.
+5. End with a prioritized implementation checklist.
 
 ## Output
 
-- Summary of goals and plan
-- Key tips and precautions
+- Recommended product plan with rationale
+- Step-by-step execution checklist
+- Risks, assumptions, and validation plan

@@ -1,20 +1,33 @@
 ---
 id: fabric
 name: Fabric
-description: Step-by-step guidance for fabric.
+description: Build and optimize data/analytics workflows on Microsoft Fabric with reliable ingestion, modeling, and reporting patterns.
 category: Development
+requires: ["fabric workspace context", "data source details", "pipeline or reporting objective"]
+examples:
+  - "Design a Fabric data pipeline from raw ingestion to curated model and Power BI reporting."
+  - "Optimize this Fabric workflow for incremental refresh and cost-efficient processing."
 ---
 
 # Fabric
 
-Support fabric workflows with clear steps and best practices.
+Provide implementation guidance for production-ready Microsoft Fabric workflows.
 
 ## When to Use
 
-- You need help with fabric.
-- You want a clear, actionable next step.
+- You are developing data engineering or analytics workflows in Fabric.
+- You need best practices for ingestion, transformations, and semantic models.
+
+## Workflow
+
+1. Define source systems, refresh cadence, and data quality rules.
+2. Design lakehouse/warehouse/pipeline architecture.
+3. Implement transformations with lineage and validation checkpoints.
+4. Configure model and report readiness for consumers.
+5. Add monitoring, cost control, and recovery plans.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- Fabric architecture plan
+- Pipeline and model guidance
+- Reliability/cost optimization checklist

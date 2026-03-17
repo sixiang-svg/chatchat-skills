@@ -1,20 +1,36 @@
 ---
 id: native-dependency-update
 name: Native Dependency Update
-description: Step-by-step guidance for native dependency update.
+description: Concrete workflow for native dependency update with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current native dependency update goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement native dependency update for this repository, including key decisions and checkpoints.
+  - Create a concise native dependency update workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
 # Native Dependency Update
 
-Support native dependency update workflows with clear steps and best practices.
+Provide practical guidance to plan and execute native dependency update tasks in real projects.
 
 ## When to Use
 
-- You need help with native dependency update.
-- You want a clear, actionable next step.
+- You need to scope and deliver native dependency update work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the native dependency update effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

@@ -1,20 +1,33 @@
 ---
 id: fabll
 name: Fabll
-description: Step-by-step guidance for fabll.
+description: Implement and extend FABLL-based application workflows with clear module structure, integration points, and validation steps.
 category: Development
+requires: ["fabll project context", "feature requirements", "current module or flow to modify"]
+examples:
+  - "Add a new workflow module to this FABLL project with validation and integration hooks."
+  - "Refactor this FABLL pipeline step for better reliability and traceability."
 ---
 
 # Fabll
 
-Support fabll workflows with clear steps and best practices.
+Provide practical development guidance for FABLL projects from design through implementation.
 
 ## When to Use
 
-- You need help with fabll.
-- You want a clear, actionable next step.
+- You are building features in a FABLL-based codebase.
+- You need structured guidance for module design and integration.
+
+## Workflow
+
+1. Identify the target module and expected behavior change.
+2. Map dependencies and integration boundaries in the project.
+3. Define implementation steps with validation and fallback behavior.
+4. Add test coverage recommendations for new logic paths.
+5. Document rollout and verification checks.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- FABLL implementation plan
+- Integration and risk notes
+- Validation checklist

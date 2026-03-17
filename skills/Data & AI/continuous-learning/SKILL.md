@@ -1,20 +1,34 @@
 ---
 id: continuous-learning
 name: Continuous Learning
-description: Step-by-step guidance for continuous learning.
+description: Practical guidance for continuous learning workflows in ML systems.
 category: Data & AI
+requires: []
+examples:
+  - "Plan a continuous learning loop for my recommendation model."
+  - "How do I set drift triggers and rollback rules for retraining?"
 ---
 
 # Continuous Learning
 
-Support continuous learning workflows with clear steps and best practices.
+Help the agent provide practical guidance for continuous learning design and operations.
 
 ## When to Use
 
-- You need help with continuous learning.
-- You want a clear, actionable next step.
+- The user needs help setting up retraining or online learning loops.
+- The user asks about drift detection, data refresh, or model updates.
+- The user wants practical safeguards for stable iteration in production.
+
+## Instructions
+
+1. Clarify data latency, retraining cadence, and deployment constraints.
+2. Recommend feedback-loop architecture and update strategy.
+3. Define drift metrics, trigger thresholds, and rollback conditions.
+4. Include governance and monitoring requirements.
+5. End with an actionable implementation checklist.
 
 ## Output
 
-- Summary of goals and plan
-- Key tips and precautions
+- Recommended continuous learning strategy
+- Implementation checklist
+- Risk controls and validation steps

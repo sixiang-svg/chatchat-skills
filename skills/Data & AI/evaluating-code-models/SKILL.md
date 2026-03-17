@@ -1,20 +1,34 @@
 ---
 id: evaluating-code-models
 name: Evaluating Code Models
-description: Step-by-step guidance for evaluating code models.
+description: Practical guidance for evaluating code-generation and code-understanding models.
 category: Data & AI
+requires: []
+examples:
+  - "Design a benchmark to evaluate a code generation model."
+  - "How should I score correctness, style, and robustness?"
 ---
 
 # Evaluating Code Models
 
-Support evaluating code models workflows with clear steps and best practices.
+Help the agent provide practical guidance for code model evaluation workflows.
 
 ## When to Use
 
-- You need help with evaluating code models.
-- You want a clear, actionable next step.
+- The user needs help measuring code model quality and reliability.
+- The user asks about benchmark design, scoring, or failure analysis.
+- The user wants actionable recommendations for improving model performance.
+
+## Instructions
+
+1. Clarify task mix (generation, repair, explanation) and target languages.
+2. Recommend benchmark construction and sampling strategy.
+3. Define automated and human review metrics.
+4. Include error taxonomy and regression tracking approach.
+5. End with an implementation and reporting checklist.
 
 ## Output
 
-- Summary of goals and plan
-- Key tips and precautions
+- Recommended evaluation strategy
+- Step-by-step benchmark plan
+- Metrics, risks, and validation checklist

@@ -1,20 +1,33 @@
 ---
 id: julia-pro
 name: Julia Pro
-description: Step-by-step guidance for julia pro.
+description: Develop high-performance Julia solutions with solid package structure, numerical correctness, and profiling-driven optimization.
 category: Development
+requires: ["julia project/module context", "problem specification", "performance and accuracy targets"]
+examples:
+  - "Optimize this Julia data-processing pipeline for speed without changing numerical results."
+  - "Design a Julia package structure for this scientific computing workflow."
 ---
 
 # Julia Pro
 
-Support julia pro workflows with clear steps and best practices.
+Apply Julia best practices for expressive code, reproducibility, and runtime performance.
 
 ## When to Use
 
-- You need help with julia pro.
-- You want a clear, actionable next step.
+- You are building or optimizing Julia-based applications.
+- You need guidance on performance, package design, or numerical stability.
+
+## Workflow
+
+1. Clarify computational goals, datasets, and correctness requirements.
+2. Design module/package structure and dependency boundaries.
+3. Implement with type-stable patterns and idiomatic Julia constructs.
+4. Profile hotspots and optimize allocations/runtime behavior.
+5. Validate results with tests and reproducibility checks.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- Julia implementation strategy
+- Performance optimization recommendations
+- Correctness and reproducibility checklist

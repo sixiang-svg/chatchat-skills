@@ -1,20 +1,36 @@
 ---
 id: python-design-patterns
 name: Python Design Patterns
-description: Step-by-step guidance for python design patterns.
+description: Concrete workflow for python design patterns with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current python design patterns goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement python design patterns for this repository, including key decisions and checkpoints.
+  - Create a concise python design patterns workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
 # Python Design Patterns
 
-Support python design patterns workflows with clear steps and best practices.
+Provide practical guidance to plan and execute python design patterns tasks in real projects.
 
 ## When to Use
 
-- You need help with python design patterns.
-- You want a clear, actionable next step.
+- You need to scope and deliver python design patterns work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the python design patterns effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

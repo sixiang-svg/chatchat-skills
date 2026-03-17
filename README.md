@@ -3,6 +3,20 @@
 Community-contributed skills for ChatChat AI agents. Try at chatchat.com. 
 Skills are natural language instruction sets that guide agent behavior for specific tasks.
 
+## What are Agent Skills?
+
+Agent Skills are folders of instructions, scripts, and resources that agents can discover and use to perform tasks more accurately. Each skill is a directory with a `SKILL.md` entrypoint and optional supporting files.
+
+```
+my-skill/
+├── SKILL.md          # Required: instructions + metadata
+├── scripts/          # Optional: executable code
+├── references/       # Optional: documentation
+└── assets/           # Optional: templates, resources
+```
+
+Skills use **progressive disclosure**: agents load only the name and description at startup, then read full instructions when a task matches. This keeps context usage efficient while giving agents access to detailed knowledge on demand.
+
 ## Using Skills
 
 Skills from this repository are automatically synced to the ChatChat Skills Store. To use a skill:

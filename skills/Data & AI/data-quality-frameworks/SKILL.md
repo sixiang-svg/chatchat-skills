@@ -1,20 +1,34 @@
 ---
 id: data-quality-frameworks
 name: Data Quality Frameworks
-description: Step-by-step guidance for data quality frameworks.
+description: Practical guidance for data quality frameworks and production checks.
 category: Data & AI
+requires: []
+examples:
+  - "Build a data quality framework for my analytics pipeline."
+  - "Which checks should I enforce for schema, freshness, and anomalies?"
 ---
 
 # Data Quality Frameworks
 
-Support data quality frameworks workflows with clear steps and best practices.
+Help the agent provide practical guidance for designing data quality controls.
 
 ## When to Use
 
-- You need help with data quality frameworks.
-- You want a clear, actionable next step.
+- The user needs help defining data quality standards and checks.
+- The user asks about profiling, validation rules, or quality SLAs.
+- The user wants implementation-ready guardrails for pipelines.
+
+## Instructions
+
+1. Clarify data domain, quality requirements, and failure impact.
+2. Recommend a layered framework (schema, distribution, business rules).
+3. Define alerting, triage, and ownership for failed checks.
+4. Include drift and anomaly monitoring strategy.
+5. End with a rollout and maintenance checklist.
 
 ## Output
 
-- Summary of goals and plan
-- Key tips and precautions
+- Recommended quality framework
+- Step-by-step implementation checklist
+- Validation, alerting, and ownership plan

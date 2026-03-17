@@ -1,20 +1,34 @@
 ---
 id: clawhub
 name: ClawHub
-description: Step-by-step guidance for clawhub.
+description: Practical guidance for building and operating workflows with ClawHub.
 category: Data & AI
+requires: []
+examples:
+  - "Help me set up a ClawHub workflow with secure credentials."
+  - "How do I troubleshoot failed runs in ClawHub integrations?"
 ---
 
 # ClawHub
 
-Support clawhub workflows with clear steps and best practices.
+Help the agent provide practical guidance for ClawHub integrations and workflow execution.
 
 ## When to Use
 
-- You need help with clawhub.
-- You want a clear, actionable next step.
+- The user needs help configuring or using ClawHub workflows.
+- The user asks about integrations, auth setup, or operational reliability.
+- The user wants implementation-ready steps and troubleshooting guidance.
+
+## Instructions
+
+1. Clarify use case, systems involved, and required outputs.
+2. Recommend workflow structure, trigger strategy, and error handling.
+3. Suggest secure credential handling and environment setup.
+4. Include observability and recovery guidance for failed runs.
+5. End with a concise implementation checklist.
 
 ## Output
 
-- Summary of goals and plan
-- Key tips and precautions
+- Recommended workflow approach
+- Step-by-step implementation plan
+- Validation and troubleshooting checklist

@@ -1,20 +1,36 @@
 ---
 id: nodejs-best-practices
-name: Node.js Best Practices
-description: Step-by-step guidance for node.JS best practices.
+name: Nodejs Best Practices
+description: Concrete workflow for nodejs best practices with specific inputs, execution steps, and deliverables.
 category: Development
+requires:
+  - current nodejs best practices goal and expected outcome
+  - relevant codebase or project context (paths, stack, constraints)
+  - acceptance criteria, timeline, and known risks
+examples:
+  - Help me plan and implement nodejs best practices for this repository, including key decisions and checkpoints.
+  - Create a concise nodejs best practices workflow with concrete steps, risks, and final deliverables for my project.
 ---
 
-# Node.js Best Practices
+# Nodejs Best Practices
 
-Support node.js best practices workflows with clear steps and best practices.
+Provide practical guidance to plan and execute nodejs best practices tasks in real projects.
 
 ## When to Use
 
-- You need help with node.js best practices.
-- You want a clear, actionable next step.
+- You need to scope and deliver nodejs best practices work with clear decisions.
+- You want a repeatable approach that reduces rework and missed requirements.
+
+## Workflow
+
+1. Clarify objectives, constraints, and success criteria for the nodejs best practices effort.
+2. Gather required project context, dependencies, and stakeholder expectations.
+3. Design an implementation approach with milestones, checkpoints, and risk controls.
+4. Execute tasks in priority order and validate outcomes against acceptance criteria.
+5. Document final decisions, unresolved risks, and recommended next actions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- A concise execution plan aligned to the stated goal and constraints
+- Actionable recommendations with risk notes and decision rationale
+- A completion checklist with clear follow-up items

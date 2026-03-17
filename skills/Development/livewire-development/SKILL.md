@@ -1,20 +1,33 @@
 ---
 id: livewire-development
 name: Livewire Development
-description: Step-by-step guidance for livewire development.
+description: Build Laravel Livewire features with clean component boundaries, validation, and reliable server-driven UI behavior.
 category: Development
+requires: ["laravel/livewire project context", "feature requirements", "data model and validation rules"]
+examples:
+  - "Implement a Livewire CRUD flow with inline validation and pagination."
+  - "Refactor these Livewire components to reduce state bugs and improve testability."
 ---
 
 # Livewire Development
 
-Support livewire development workflows with clear steps and best practices.
+Implement Livewire applications with predictable state transitions and maintainable component structure.
 
 ## When to Use
 
-- You need help with livewire development.
-- You want a clear, actionable next step.
+- You are developing interactive Laravel UI with Livewire.
+- You need guidance on component architecture and validation flows.
+
+## Workflow
+
+1. Map feature behaviors to Livewire components and actions.
+2. Define component state, validation, and authorization rules.
+3. Implement event flow and server interactions.
+4. Optimize rendering and avoid excessive network round trips.
+5. Add tests for validation, actions, and state transitions.
 
 ## Output
 
-- Brief plan or checklist
-- Key recommendations and caveats
+- Livewire feature implementation plan
+- State/validation architecture notes
+- Test and reliability checklist
