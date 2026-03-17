@@ -149,7 +149,7 @@ jobs:
           skills.sort((a, b) => a.name.localeCompare(b.name));
           fs.writeFileSync('index.json', JSON.stringify(skills, null, 2));
           console.log('Built index.json with ' + skills.length + ' skills');
-          "
+          NODE
 
       - name: Commit index.json
         run: |
