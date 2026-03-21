@@ -1,6 +1,6 @@
 ---
-id: esm
-name: ESM
+id: adaptyv
+name: Adaptyv
 description: Automated protein testing platform for sequence validation. Submit sequences and receive experimental results for stability and activity.
 category: Research
 requires: []
