@@ -29,4 +29,4 @@ Support scikit-hep workflows with clear steps and best practices.
 ## Output
 - Summarized HEP analysis plans including data loading strategies and selection cuts.
 - Annotated physics plots (e.g., invariant mass distributions) with statistical fit results.
-- Performance-optimized Python code snippets forHEP data manipulation.
+- Performance-optimized Python code snippets for HEP data manipulation.
