@@ -122,7 +122,7 @@ Before using any protocols.io API functionality:
 
 ### Step 2: Identify Your Use Case
 
-Determine which capability area addresses
+Determine which capability area addresses your needs.
 
 ### Step 3: Implement Integration
 
