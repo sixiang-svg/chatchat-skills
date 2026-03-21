@@ -15,7 +15,7 @@ Support swissweather workflows with clear steps and best practices.
 
 ## Instruction
 - Fetch current weather conditions and multi-day forecasts for Swiss cities, valleys, and high-altitude alpine regions.
-- Analyze specialized Swiss meteorological phenomena, including F?hn wind patterns, snow stability, and avalanche risk levels.
+- Analyze specialized Swiss meteorological phenomena, including Föhn wind patterns, snow stability, and avalanche risk levels.
 - Utilize the Swiss national weather network (MeteoSwiss) to identify microclimate variations across the Alps.
 - Evaluate the impact of upcoming weather events on Swiss transport infrastructure, alpine agriculture, and outdoor activities.
 - Provide step-by-step guidance for accessing local weather station telemetry and high-resolution precipitation radar.
