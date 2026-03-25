@@ -1,13 +1,22 @@
 ---
-category: Research
 id: qms-audit-expert
 name: QMS Audit Expert
-description: Senior QMS Audit Expert for internal and external quality management system auditing. Provides ISO 13485 audit expertise, audit program management, nonconformity identification, and corrective action verification. Use for internal audit planning, external audit preparation, audit execution, and audit follow-up activities.
+description: Senior QMS audit guidance for ISO 13485 compliance, internal audit planning, and nonconformity management.
+category: Research
+requires: []
+examples:
+  - Develop an internal audit plan for ISO 13485 compliance.
+  - Identify and document a nonconformity found during a quality audit.
 ---
 
 # Senior QMS Audit Expert
 
 Expert-level quality management system auditing with comprehensive knowledge of ISO 13485, audit methodologies, nonconformity management, and audit program optimization for medical device organizations.
+
+## When to Use
+- When planning or executing internal QMS audits in a medical device manufacturing environment.
+- When documenting audit findings or managing nonconformity resolution processes.
+- When preparing for external audits, regulatory inspections, or certification body assessments.
 
 ## Core QMS Auditing Competencies
 
@@ -218,23 +227,3 @@ Maintain awareness of industry audit best practices and regulatory expectations.
 - **Professional Development**: Auditor certification and continuing education
 - **Peer Learning**: Industry audit community participation and knowledge sharing
 
-## Resources
-
-### scripts/
-- `audit-schedule-optimizer.py`: Risk-based audit planning and schedule optimization
-- `audit-prep-checklist.py`: Comprehensive audit preparation automation
-- `nonconformity-tracker.py`: Audit finding and CAPA integration management
-- `audit-performance-analyzer.py`: Audit program effectiveness monitoring
-
-### references/
-- `iso13485-audit-guide.md`: Complete ISO 13485 audit methodology and checklists
-- `process-audit-procedures.md`: Process-based audit execution frameworks
-- `regulatory-inspection-guide.md`: Regulatory audit preparation and response
-- `certification-audit-guide.md`: Certification body audit coordination
-- `auditor-competency-framework.md`: Auditor development and assessment criteria
-
-### assets/
-- `audit-templates/`: Audit plan, checklist, and report templates
-- `audit-checklists/`: ISO 13485 clause-specific audit checklists
-- `training-materials/`: Auditor training and competency development programs
-- `nonconformity-forms/`: Standardized nonconformity documentation templates

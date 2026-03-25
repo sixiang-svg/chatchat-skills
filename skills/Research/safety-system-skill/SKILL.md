@@ -1,14 +1,12 @@
 ---
-category: Research
 id: safety-system-skill
 name: Safety System Skill
-description: System safety and control-plane skill that prevents agent deadlocks and freezes. Provides non-LLM control commands to inspect task state, flush message queues, cancel long-running work, and recover safely without restarting the container.
-  System safety and control-plane skill that prevents agent deadlocks and freezes.
-  Provides non-LLM control commands to inspect task state, flush message queues,
-  cancel long-running work, and recover safely without restarting the container.
-  Use when implementing or operating long-running tasks, sub-agents, benchmarks,
-  background monitors (e.g., Moltbook, PNR checks), or when the system becomes
-  unresponsive and needs immediate recovery controls.
+description: System safety skill that prevents agent deadlocks via non-LLM control commands to inspect task state and flush message queues.
+category: Research
+requires: []
+examples:
+  - Help me recover the system from a deadlock using control commands.
+  - How do I inspect the current task registry state and system health?
 ---
 
 # error-guard
@@ -89,3 +87,21 @@ Steps:
 - No LLM reasoning paths
 
 This skill is the **last line of defense**. Keep it small, fast, and reliable.
+
+## Instruction
+- Utilize non-LLM control commands to inspect the agent's internal task registry and system health without blocking execution.
+- Run `/status` periodically to identify stalled or overdue tasks and report the current heartbeat of the control plane.
+- Execute the `/flush` command as an emergency stop to immediately cancel all active tasks and clear pending message queues.
+- Perform the `/recover` sequence to reset the agent's state and reload necessary skills after a system freeze or deadlock.
+- Strictly adhere to constant-time constraints for safety commands, ensuring they never call external APIs or LLM models.
+- Monitor minimal task metadata (ID, timestamps) to maintain a fail-safe environment for long-lived or high-risk workloads.
+
+## When to Use
+- When running high-risk, long-duration tasks that are prone to agent freezes or infinite loops.
+- When requiring an emergency "kill switch" to stop active code execution or message processing.
+- When performing automated system health monitoring for complex multi-agent orchestration.
+
+## Output
+- Real-time system health reports including task IDs and start times.
+- Detailed recovery logs summarizing the outcome of flush and reset operations.
+- Actionable status flags for stalled processes and suggested recovery paths.

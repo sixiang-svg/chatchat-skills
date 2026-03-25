@@ -1,8 +1,12 @@
 ---
-category: Research
 id: pylabrobot
 name: PyLabRobot
-description: Step-by-step guidance for pylabrobot.
+description: Hardware-agnostic Python SDK for controlling liquid handlers, plate readers, and other lab automation equipment through a unified interface.
+category: Research
+requires: []
+examples:
+  - Initialize a Hamilton STAR liquid handler and pick up tips.
+  - Create a plate reading protocol using the BMG CLARIOstar backend.
 ---
 
 # PyLabRobot
@@ -84,26 +88,6 @@ Visualize and simulate laboratory protocols:
 
 To get started with PyLabRobot, install the package and initialize a liquid handler:
 
-```python
-# Install PyLabRobot
-# uv pip install pylabrobot
-
-# Basic liquid handling setup
-from pylabrobot.liquid_handling import LiquidHandler
-from pylabrobot.liquid_handling.backends import STAR
-from pylabrobot.resources import STARLetDeck
-
-# Initialize liquid handler
-lh = LiquidHandler(backend=STAR(), deck=STARLetDeck())
-await lh.setup()
-
-# Basic operations
-await lh.pick_up_tips(tip_rack["A1:H1"])
-await lh.aspirate(plate["A1"], vols=100)
-await lh.dispense(plate["A2"], vols=100)
-await lh.drop_tips()
-```
-
 ## Working with References
 
 This skill organizes detailed information across multiple reference files. Load the relevant reference when:
@@ -133,49 +117,18 @@ When creating laboratory automation protocols with PyLabRobot:
 
 ### Liquid Transfer Protocol
 
-```python
-# Setup
-lh = LiquidHandler(backend=STAR(), deck=STARLetDeck())
-await lh.setup()
-
-# Define resources
-tip_rack = TIP_CAR_480_A00(name="tip_rack")
-source_plate = Cos_96_DW_1mL(name="source")
-dest_plate = Cos_96_DW_1mL(name="dest")
-
-lh.deck.assign_child_resource(tip_rack, rails=1)
-lh.deck.assign_child_resource(source_plate, rails=10)
-lh.deck.assign_child_resource(dest_plate, rails=15)
-
-# Transfer protocol
-await lh.pick_up_tips(tip_rack["A1:H1"])
-await lh.transfer(source_plate["A1:H12"], dest_plate["A1:H12"], vols=100)
-await lh.drop_tips()
-```
 
 ### Plate Reading Workflow
 
-```python
-# Setup plate reader
-from pylabrobot.plate_reading import PlateReader
-from pylabrobot.plate_reading.clario_star_backend import CLARIOstarBackend
+## Instruction
+- Initialize the target liquid handling system (e.g., Hamilton, Opentrons, Tecan) using the appropriate backend configuration.
+- Define the laboratory deck layout by assigning child resources such as tip racks, source plates, and destination reservoirs to specific rails or slots.
+- Program complex liquid handling sequences, including tip pickup, aspiration, dispensing, and tip disposal with specific volume controls.
+- Implement multi-device workflows by integrating plate readers, heater-shakers, or centrifuges into the unified Python interface.
+- Execute protocol simulations to verify deck coordinates and movement paths before running on physical hardware.
+- Handle asynchronous operations for high-throughput batch processing to maximize robot utilization.
 
-pr = PlateReader(name="CLARIOstar", backend=CLARIOstarBackend())
-await pr.setup()
-
-# Set temperature and read
-await pr.set_temperature(37)
-await pr.open()
-# (manually or robotically load plate)
-await pr.close()
-data = await pr.read_absorbance(wavelength=450)
-```
-
-## Additional Resources
-
-- **Official Documentation**: https://docs.pylabrobot.org
-- **GitHub Repository**: https://github.com/PyLabRobot/pylabrobot
-- **Community Forum**: https://discuss.pylabrobot.org
-- **PyPI Package**: https://pypi.org/project/PyLabRobot/
-
-For detailed usage of specific capabilities, refer to the corresponding reference file in the `references/` directory.
+## Output
+- Executable Python automation scripts and validated deck configuration files.
+- Real-time status logs for robot movements and liquid transfer completion.
+- Simulation reports and visual summaries of the automated experimental workflow.

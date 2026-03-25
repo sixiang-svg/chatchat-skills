@@ -1,8 +1,12 @@
 ---
-category: Research
 id: pysam
 name: pysam
-description: Genomic file toolkit. Read/write SAM/BAM/CRAM alignments, VCF/BCF variants, FASTA/FASTQ sequences, extract regions, calculate coverage, for NGS data processing pipelines.
+description: Python interface for htslib to read, manipulate, and write SAM/BAM/CRAM alignments, VCF/BCF variants, and FASTA/FASTQ sequences.
+category: Research
+requires: []
+examples:
+  - Calculate read depth for a specific region in a BAM file.
+  - Filter variants in a VCF file based on quality scores.
 ---
 
 # Pysam
@@ -25,41 +29,15 @@ This skill should be used when:
 
 ## Quick Start
 
-### Installation
-```bash
-uv pip install pysam
-```
 
 ### Basic Examples
 
 **Read alignment file:**
-```python
-import pysam
 
-# Open BAM file and fetch reads in region
-samfile = pysam.AlignmentFile("example.bam", "rb")
-for read in samfile.fetch("chr1", 1000, 2000):
-    print(f"{read.query_name}: {read.reference_start}")
-samfile.close()
-```
 
 **Read variant file:**
-```python
-# Open VCF file and iterate variants
-vcf = pysam.VariantFile("variants.vcf")
-for variant in vcf:
-    print(f"{variant.chrom}:{variant.pos} {variant.ref}>{variant.alts}")
-vcf.close()
-```
 
 **Query reference sequence:**
-```python
-# Open FASTA and extract sequence
-fasta = pysam.FastaFile("reference.fasta")
-sequence = fasta.fetch("chr1", 1000, 2000)
-print(sequence)
-fasta.close()
-```
 
 ## Core Capabilities
 
@@ -209,53 +187,3 @@ Specify format when opening files:
 6. **Stream limitations:** Only stdin/stdout are supported for streaming, not arbitrary Python file objects
 7. **Thread safety:** While GIL is released during I/O, comprehensive thread-safety hasn't been fully validated
 
-## Command-Line Tools
-
-Pysam provides access to samtools and bcftools commands:
-
-```python
-# Sort BAM file
-pysam.samtools.sort("-o", "sorted.bam", "input.bam")
-
-# Index BAM
-pysam.samtools.index("sorted.bam")
-
-# View specific region
-pysam.samtools.view("-b", "-o", "region.bam", "input.bam", "chr1:1000-2000")
-
-# BCF tools
-pysam.bcftools.view("-O", "z", "-o", "output.vcf.gz", "input.vcf")
-```
-
-**Error handling:**
-```python
-try:
-    pysam.samtools.sort("-o", "output.bam", "input.bam")
-except pysam.SamtoolsError as e:
-    print(f"Error: {e}")
-```
-
-## Resources
-
-### references/
-
-Detailed documentation for each major capability:
-
-- **alignment_files.md** - Complete guide to SAM/BAM/CRAM operations, including AlignmentFile class, AlignedSegment attributes, fetch operations, pileup analysis, and writing alignments
-
-- **variant_files.md** - Complete guide to VCF/BCF operations, including VariantFile class, VariantRecord attributes, genotype handling, INFO/FORMAT fields, and multi-sample operations
-
-- **sequence_files.md** - Complete guide to FASTA/FASTQ operations, including FastaFile and FastxFile classes, sequence extraction, quality score handling, and tabix-indexed file access
-
-- **common_workflows.md** - Practical examples of integrated bioinformatics workflows combining multiple file types, including quality control, coverage analysis, variant validation, and sequence extraction
-
-## Getting Help
-
-For detailed information on specific operations, refer to the appropriate reference document:
-
-- Working with BAM files or calculating coverage → `alignment_files.md`
-- Analyzing variants or genotypes → `variant_files.md`
-- Extracting sequences or processing FASTQ → `sequence_files.md`
-- Complex workflows integrating multiple file types → `common_workflows.md`
-
-Official documentation: https://pysam.readthedocs.io/

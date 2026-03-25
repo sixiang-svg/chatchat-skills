@@ -1,8 +1,12 @@
 ---
-category: Research
 id: safety-interlocks
 name: Safety Interlocks
 description: Implement safety interlocks and protective mechanisms to prevent equipment damage and ensure safe control system operation.
+category: Research
+requires: []
+examples:
+  - How do I implement a safety cutoff for my control loop?
+  - Show me a pattern for applying safety limits to sensor data.
 ---
 
 # Safety Interlocks for Control Systems
@@ -11,107 +15,23 @@ description: Implement safety interlocks and protective mechanisms to prevent eq
 
 Safety interlocks are protective mechanisms that prevent equipment damage and ensure safe operation. In control systems, the primary risks are output saturation and exceeding safe operating limits.
 
-## Implementation Pattern
+## Instruction
+- Perform a critical pre-control check to verify that sensor readings are within physical bounds and not NaN or infinite.
+- Identify and define the absolute safety limits (Maximum and Minimum) for both measurements and control outputs.
+- Implement a "Check BEFORE Output" logic where safety conditions are evaluated immediately before any control command is sent.
+- Trigger an emergency cutoff (setting output to a safe minimum) whenever a critical threshold is breached.
+- Maintain a structured safety log recording the timestamp, measurement, and the specific event that triggered an interlock.
+- Utilize output clamping to ensure that manual or automated commands never exceed the hardware's safe operating range.
 
-Always check safety conditions BEFORE applying control outputs:
+## When to Use
+- When designing or implementing control logic for laboratory hardware, heating systems, or mechanical actuators.
+- When establishing protective mechanisms to prevent system saturation or catastrophic equipment damage.
+- When performing risk assessments and configuring automated safety monitoring for industrial processes.
 
-```python
-def apply_safety_limits(measurement, command, max_limit, min_limit, max_output, min_output):
-    """
-    Apply safety checks and return safe command.
-
-    Args:
-        measurement: Current sensor reading
-        command: Requested control output
-        max_limit: Maximum safe measurement value
-        min_limit: Minimum safe measurement value
-        max_output: Maximum output command
-        min_output: Minimum output command
-
-    Returns:
-        tuple: (safe_command, safety_triggered)
-    """
-    safety_triggered = False
-
-    # Check for over-limit - HIGHEST PRIORITY
-    if measurement >= max_limit:
-        command = min_output  # Emergency cutoff
-        safety_triggered = True
-
-    # Clamp output to valid range
-    command = max(min_output, min(max_output, command))
-
-    return command, safety_triggered
-```
-
-## Integration with Control Loop
-
-```python
-class SafeController:
-    def __init__(self, controller, max_limit, min_output=0.0, max_output=100.0):
-        self.controller = controller
-        self.max_limit = max_limit
-        self.min_output = min_output
-        self.max_output = max_output
-        self.safety_events = []
-
-    def compute(self, measurement, dt):
-        """Compute safe control output."""
-        # Check safety FIRST
-        if measurement >= self.max_limit:
-            self.safety_events.append({
-                "measurement": measurement,
-                "action": "emergency_cutoff"
-            })
-            return self.min_output
-
-        # Normal control
-        output = self.controller.compute(measurement, dt)
-
-        # Clamp to valid range
-        return max(self.min_output, min(self.max_output, output))
-```
-
-## Safety During Open-Loop Testing
-
-During calibration/excitation, safety is especially important because there's no feedback control:
-
-```python
-def run_test_with_safety(system, input_value, duration, dt, max_limit):
-    """Run open-loop test while monitoring safety limits."""
-    data = []
-    current_input = input_value
-
-    for step in range(int(duration / dt)):
-        result = system.step(current_input)
-        data.append(result)
-
-        # Safety check
-        if result["output"] >= max_limit:
-            current_input = 0.0  # Cut input
-
-    return data
-```
-
-## Logging Safety Events
-
-Always log safety events for analysis:
-
-```python
-safety_log = {
-    "limit": max_limit,
-    "events": []
-}
-
-if measurement >= max_limit:
-    safety_log["events"].append({
-        "time": current_time,
-        "measurement": measurement,
-        "command_before": command,
-        "command_after": 0.0,
-        "event_type": "limit_exceeded"
-    })
-```
+## Output
+- Functional safety logic patterns and code snippets for interlock implementation.
+- Configuration summaries for safety thresholds and emergency response behaviors.
+- A checklist of precautions for pre-control sensor validation and safety event logging.
 
 ## Pre-Control Checklist
 
@@ -129,13 +49,6 @@ Before starting any control operation:
    - Maximum limit threshold set
    - Output clamping enabled
 
-```python
-def pre_control_checks(measurement, config):
-    """Run pre-control safety verification."""
-    assert not np.isnan(measurement), "Measurement is NaN"
-    assert config.get("max_limit") is not None, "Safety limit not configured"
-    return True
-```
 
 ## Best Practices
 
