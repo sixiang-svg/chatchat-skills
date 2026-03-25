@@ -1,8 +1,12 @@
 ---
-category: Research
 id: instrument-data-to-allotrope
 name: Instrument Data to Allotrope
-description: Convert laboratory instrument output files (PDF, CSV, Excel, TXT) to Allotrope Simple Model (ASM) JSON format or flattened 2D CSV. Use this skill when scientists need to standardize instrument data for LIMS systems, data lakes, or downstream analysis. Supports auto-detection of instrument types. Outputs include full ASM JSON, flattened CSV for easy import, and exportable Python code for data engineers. Common triggers include converting instrument files, standardizing lab data, preparing data for upload to LIMS/ELN systems, or generating parser code for production pipelines.
+description: Convert lab instrument outputs (PDF, CSV, Excel) to Allotrope Simple Model (ASM) JSON or flattened CSV for LIMS standardization.
+category: Research
+requires: []
+examples:
+  - Convert this Vi-CELL BLU Excel report to ASM JSON format.
+  - Standardize this plate reader CSV for a LIMS system upload.
 ---
 
 # Instrument Data to Allotrope Converter
@@ -32,19 +36,6 @@ Convert instrument files into standardized Allotrope Simple Model (ASM) format f
 
 > **When Uncertain:** If you're unsure how to map a field to ASM (e.g., is this raw data or calculated? device setting or environmental condition?), ask the user for clarification. Refer to `references/field_classification_guide.md` for guidance, but when ambiguity remains, confirm with the user rather than guessing.
 
-## Quick Start
-
-```python
-# Install requirements first
-pip install allotropy pandas openpyxl pdfplumber --break-system-packages
-
-# Core conversion
-from allotropy.parser_factory import Vendor
-from allotropy.to_allotrope import allotrope_from_file
-
-# Convert with allotropy
-asm = allotrope_from_file("instrument_data.csv", Vendor.BECKMAN_VI_CELL_BLU)
-```
 
 ## Output Format Selection
 
@@ -67,21 +58,6 @@ asm = allotrope_from_file("instrument_data.csv", Vendor.BECKMAN_VI_CELL_BLU)
 
 Calculated values MUST include traceability via `data-source-aggregate-document`:
 
-```json
-"calculated-data-aggregate-document": {
-  "calculated-data-document": [{
-    "calculated-data-identifier": "SAMPLE_B1_DIN_001",
-    "calculated-data-name": "DNA integrity number",
-    "calculated-result": {"value": 9.5, "unit": "(unitless)"},
-    "data-source-aggregate-document": {
-      "data-source-document": [{
-        "data-source-identifier": "SAMPLE_B1_MEASUREMENT",
-        "data-source-feature": "electrophoresis trace"
-      }]
-    }
-  }]
-}
-```
 
 **Common calculated fields by instrument type:**
 | Instrument | Calculated Fields |
@@ -92,22 +68,9 @@ Calculated values MUST include traceability via `data-source-aggregate-document`
 | Electrophoresis | DIN/RIN, region concentrations, average sizes |
 | qPCR | Relative quantities, fold change |
 
-See `references/field_classification_guide.md` for detailed guidance on raw vs. calculated classification.
-
 ## Validation
 
 Always validate ASM output before delivering to the user:
-
-```bash
-python scripts/validate_asm.py output.json
-python scripts/validate_asm.py output.json --reference known_good.json  # Compare to reference
-python scripts/validate_asm.py output.json --strict  # Treat warnings as errors
-```
-
-**Validation Rules:**
-- Based on Allotrope ASM specification (December 2024)
-- Last updated: 2026-01-07
-- Source: https://gitlab.com/allotrope-public/asm
 
 **Soft Validation Approach:**
 Unknown techniques, units, or sample roles generate **warnings** (not errors) to allow for forward compatibility. If Allotrope adds new values after December 2024, the validator won't block them—it will flag them for manual verification. Use `--strict` mode to treat warnings as errors if you need stricter validation.
@@ -115,14 +78,12 @@ Unknown techniques, units, or sample roles generate **warnings** (not errors) to
 **What it checks:**
 - Correct technique selection (e.g., multi-analyte profiling vs plate reader)
 - Field naming conventions (space-separated, not hyphenated)
-- Calculated data has traceability (`data-source-aggregate-document`)
+- Calculated data has traceability 
 - Unique identifiers exist for measurements and calculated values
 - Required metadata present
 - Valid units and sample roles (with soft validation for unknown values)
 
 ## Supported Instruments
-
-See `references/supported_instruments.md` for complete list. Key instruments:
 
 | Category | Instruments |
 |----------|-------------|
@@ -137,22 +98,6 @@ See `references/supported_instruments.md` for complete list. Key instruments:
 
 ### Tier 1: Native allotropy parsing (PREFERRED)
 **Always try allotropy first.** Check available vendors directly:
-
-```python
-from allotropy.parser_factory import Vendor
-
-# List all supported vendors
-for v in Vendor:
-    print(f"{v.name}")
-
-# Common vendors:
-# AGILENT_TAPESTATION_ANALYSIS  (for TapeStation XML)
-# BECKMAN_VI_CELL_BLU
-# THERMO_FISHER_NANODROP_EIGHT
-# MOLDEV_SOFTMAX_PRO
-# APPBIO_QUANTSTUDIO
-# ... many more
-```
 
 **When the user provides a file, check if allotropy supports it before falling back to manual parsing.** The `scripts/convert_to_asm.py` auto-detection only covers a subset of allotropy vendors.
 
@@ -174,10 +119,10 @@ For PDF-only files, extract tables using pdfplumber, then apply Tier 2 parsing.
 
 Before writing a custom parser, ALWAYS:
 
-1. **Check if allotropy supports it** - Use native parser if available
-2. **Find a reference ASM file** - Check `references/examples/` or ask user
-3. **Review instrument-specific guide** - Check `references/instrument_guides/`
-4. **Validate against reference** - Run `validate_asm.py --reference <file>`
+1. **Check if allotropy supports it** 
+2. **Find a reference ASM file**
+3. **Review instrument-specific guide** 
+4. **Validate against reference** 
 
 ## Common Mistakes to Avoid
 
@@ -192,11 +137,6 @@ Before writing a custom parser, ALWAYS:
 ## Code Export for Data Engineers
 
 Generate standalone Python scripts that scientists can hand off:
-
-```python
-# Export parser code
-python scripts/export_parser.py --input "data.csv" --vendor "VI_CELL_BLU" --output "parser_script.py"
-```
 
 The exported script:
 - Has no external dependencies beyond pandas/allotropy
@@ -224,7 +164,7 @@ instrument-data-to-allotrope/
 ## Usage Examples
 
 ### Example 1: Vi-CELL BLU file
-```
+
 User: "Convert this cell counting data to Allotrope format"
 [uploads viCell_Results.xlsx]
 
@@ -235,10 +175,10 @@ Claude:
    - viCell_Results_asm.json (full ASM)
    - viCell_Results_flat.csv (2D format)
    - viCell_parser.py (exportable code)
-```
+
 
 ### Example 2: Request for code handoff
-```
+
 User: "I need to give our data engineer code to parse NanoDrop files"
 
 Claude:
@@ -246,10 +186,10 @@ Claude:
 2. Includes sample input/output
 3. Documents all assumptions
 4. Provides Jupyter notebook version
-```
+
 
 ### Example 3: LIMS-ready flattened output
-```
+
 User: "Convert this ELISA data to a CSV I can upload to our LIMS"
 
 Claude:
@@ -258,25 +198,4 @@ Claude:
    - sample_identifier, well_position, measurement_value, measurement_unit
    - instrument_serial_number, analysis_datetime, assay_type
 3. Validates against common LIMS import requirements
-```
 
-## Implementation Notes
-
-### Installing allotropy
-```bash
-pip install allotropy --break-system-packages
-```
-
-### Handling parse failures
-If allotropy native parsing fails:
-1. Log the error for debugging
-2. Fall back to flexible parser
-3. Report reduced metadata completeness to user
-4. Suggest exporting different format from instrument
-
-### ASM Schema Validation
-Validate output against Allotrope schemas when available:
-```python
-import jsonschema
-# Schema URLs in references/asm_schema_overview.md
-```
