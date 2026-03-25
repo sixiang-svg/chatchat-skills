@@ -1,16 +1,14 @@
 ---
-category: Research
 id: deep-research
 name: Deep Research
-description: Step-by-step guidance for deep research.
-  Comprehensive research assistant that synthesizes information from multiple sources with citations.
-  Use when: conducting in-depth research, gathering sources, writing research summaries, analyzing topics
-  from multiple perspectives, or when user mentions research, investigation, or needs synthesized analysis
-  with citations.
-license: MIT
-metadata:
-  author: awesome-llm-apps
-  version: "1.0.0"
+description: Comprehensive research assistant that synthesizes information from multiple sources with verified citations and structured analysis.
+category: Research
+author: awesome-llm-apps
+version: "1.0.0"
+requires: []
+examples:
+  - Research the current state of solid-state battery technology and provide citations.
+  - Synthesize the competing theories on dark matter from multiple scientific sources.
 ---
 
 # Deep Research

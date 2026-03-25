@@ -1,8 +1,12 @@
 ---
-category: Research
 id: ensembl-database
 name: Ensembl Database
-description: Query Ensembl genome database REST API for 250+ species. Gene lookups, sequence retrieval, variant analysis, comparative genomics, orthologs, VEP predictions, for genomic research.
+description: Query Ensembl REST API for gene annotations, sequences, variant analysis, and comparative genomics across 250+ species.
+category: Research
+requires: []
+examples:
+  - Look up the genomic coordinates for the human BRCA2 gene.
+  - Retrieve orthologs for a mouse gene across vertebrate species.
 ---
 
 # Ensembl Database
@@ -36,39 +40,6 @@ Query gene data by symbol, Ensembl ID, or external database identifiers.
 - Get gene coordinates and chromosomal locations
 - Access cross-references to external databases (UniProt, RefSeq, etc.)
 
-**Using the ensembl_rest package:**
-```python
-from ensembl_rest import EnsemblClient
-
-client = EnsemblClient()
-
-# Look up gene by symbol
-gene_data = client.symbol_lookup(
-    species='human',
-    symbol='BRCA2'
-)
-
-# Get detailed gene information
-gene_info = client.lookup_id(
-    id='ENSG00000139618',  # BRCA2 Ensembl ID
-    expand=True
-)
-```
-
-**Direct REST API (no package):**
-```python
-import requests
-
-server = "https://rest.ensembl.org"
-
-# Symbol lookup
-response = requests.get(
-    f"{server}/lookup/symbol/homo_sapiens/BRCA2",
-    headers={"Content-Type": "application/json"}
-)
-gene_data = response.json()
-```
-
 ### 2. Sequence Retrieval
 
 Fetch genomic, transcript, or protein sequences in various formats (JSON, FASTA, plain text).
@@ -79,20 +50,6 @@ Fetch genomic, transcript, or protein sequences in various formats (JSON, FASTA,
 - Access protein sequences
 - Extract sequences with flanking regions or modifications
 
-**Example:**
-```python
-# Using ensembl_rest package
-sequence = client.sequence_id(
-    id='ENSG00000139618',  # Gene ID
-    content_type='application/json'
-)
-
-# Get sequence for a genomic region
-region_seq = client.sequence_region(
-    species='human',
-    region='7:140424943-140624564'  # chromosome:start-end
-)
-```
 
 ### 3. Variant Analysis
 
@@ -104,20 +61,6 @@ Query genetic variation data and predict variant consequences using the Variant 
 - Access population frequency data
 - Retrieve phenotype associations
 
-**VEP example:**
-```python
-# Predict variant consequences
-vep_result = client.vep_hgvs(
-    species='human',
-    hgvs_notation='ENST00000380152.7:c.803C>T'
-)
-
-# Query variant by rsID
-variant = client.variation_id(
-    species='human',
-    id='rs699'
-)
-```
 
 ### 4. Comparative Genomics
 
@@ -129,20 +72,6 @@ Perform cross-species comparisons to identify orthologs, paralogs, and evolution
 - Access gene trees showing evolutionary relationships
 - Retrieve gene family information
 
-**Example:**
-```python
-# Find orthologs for a human gene
-orthologs = client.homology_ensemblgene(
-    id='ENSG00000139618',  # Human BRCA2
-    target_species='mouse'
-)
-
-# Get gene tree
-gene_tree = client.genetree_member_symbol(
-    species='human',
-    symbol='BRCA2'
-)
-```
 
 ### 5. Genomic Region Analysis
 
@@ -154,35 +83,9 @@ Find all genomic features (genes, transcripts, regulatory elements) in a specifi
 - Locate variants within a region
 - Retrieve structural features
 
-**Example:**
-```python
-# Find all features in a region
-features = client.overlap_region(
-    species='human',
-    region='7:140424943-140624564',
-    feature='gene'
-)
-```
-
 ### 6. Assembly Mapping
 
 Convert coordinates between different genome assemblies (e.g., GRCh37 to GRCh38).
-
-**Important:** Use `https://grch37.rest.ensembl.org` for GRCh37/hg19 queries and `https://rest.ensembl.org` for current assemblies.
-
-**Example:**
-```python
-from ensembl_rest import AssemblyMapper
-
-# Map coordinates from GRCh37 to GRCh38
-mapper = AssemblyMapper(
-    species='human',
-    asm_from='GRCh37',
-    asm_to='GRCh38'
-)
-
-mapped = mapper.map(chrom='7', start=140453136, end=140453136)
-```
 
 ## API Best Practices
 
@@ -194,65 +97,6 @@ The Ensembl REST API has rate limits. Follow these practices:
 2. **Handle 429 responses:** When rate-limited, check the `Retry-After` header and wait
 3. **Use batch endpoints:** When querying multiple items, use batch endpoints where available
 4. **Cache results:** Store frequently accessed data to reduce API calls
-
-### Error Handling
-
-Always implement proper error handling:
-
-```python
-import requests
-import time
-
-def query_ensembl(endpoint, params=None, max_retries=3):
-    server = "https://rest.ensembl.org"
-    headers = {"Content-Type": "application/json"}
-
-    for attempt in range(max_retries):
-        response = requests.get(
-            f"{server}{endpoint}",
-            headers=headers,
-            params=params
-        )
-
-        if response.status_code == 200:
-            return response.json()
-        elif response.status_code == 429:
-            # Rate limited - wait and retry
-            retry_after = int(response.headers.get('Retry-After', 1))
-            time.sleep(retry_after)
-        else:
-            response.raise_for_status()
-
-    raise Exception(f"Failed after {max_retries} attempts")
-```
-
-## Installation
-
-### Python Package (Recommended)
-
-```bash
-uv pip install ensembl_rest
-```
-
-The `ensembl_rest` package provides a Pythonic interface to all Ensembl REST API endpoints.
-
-### Direct REST API
-
-No installation needed - use standard HTTP libraries like `requests`:
-
-```bash
-uv pip install requests
-```
-
-## Resources
-
-### references/
-
-- `api_endpoints.md`: Comprehensive documentation of all 17 API endpoint categories with examples and parameters
-
-### scripts/
-
-- `ensembl_query.py`: Reusable Python script for common Ensembl queries with built-in rate limiting and error handling
 
 ## Common Workflows
 
@@ -279,29 +123,3 @@ uv pip install requests
 3. Retrieve sequences for all orthologs
 4. Compare gene structures and features
 5. Analyze evolutionary conservation
-
-## Species and Assembly Information
-
-To query available species and assemblies:
-
-```python
-# List all available species
-species_list = client.info_species()
-
-# Get assembly information for a species
-assembly_info = client.info_assembly(species='human')
-```
-
-Common species identifiers:
-- Human: `homo_sapiens` or `human`
-- Mouse: `mus_musculus` or `mouse`
-- Zebrafish: `danio_rerio` or `zebrafish`
-- Fruit fly: `drosophila_melanogaster`
-
-## Additional Resources
-
-- **Official Documentation:** https://rest.ensembl.org/documentation
-- **Python Package Docs:** https://ensemblrest.readthedocs.io
-- **EBI Training:** https://www.ebi.ac.uk/training/online/courses/ensembl-rest-api/
-- **Ensembl Browser:** https://useast.ensembl.org
-- **GitHub Examples:** https://github.com/Ensembl/ensembl-rest/wiki

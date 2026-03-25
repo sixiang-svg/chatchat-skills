@@ -1,15 +1,14 @@
 ---
-category: Research
 id: fact-checker
 name: Fact Checker
 description: Systematic fact verification and misinformation identification using evidence-based analysis.
-  Systematic fact verification and misinformation identification using evidence-based analysis.
-  Use when: verifying claims, checking facts, identifying misinformation, evaluating source credibility,
-  or when user asks to "fact check", "verify", "is this true", or mentions claims that need validation.
-license: MIT
-metadata:
-  author: awesome-llm-apps
-  version: "1.0.0"
+category: Research
+author: awesome-llm-apps
+version: "1.0.0"
+requires: []
+examples:
+  - Fact check the claim that humans only use 10 percent of their brains.
+  - Verify the statistical accuracy of recent reports on global carbon emissions.
 ---
 
 # Fact Checker
@@ -175,10 +174,3 @@ Humans use virtually all of their brain. Different regions activate for differen
 
 While we don't have conscious access to all brain functions (autonomic processes like heartbeat, many memory processes), this doesn't mean those regions are "unused" - they're actively maintaining vital functions.
 
-## Sources
-
-[1] Herculano-Houzel, S. (2012). "The remarkable, yet not extraordinary, human brain." *Proceedings of the National Academy of Sciences*, 109(Supplement 1), 10661-10668. (Peer-reviewed, authoritative neuroscience)
-
-[2] Boyd, R. (2008). "Do People Only Use 10 Percent of Their Brains?" *Scientific American*. (Science journalism, expert sources)
-
-[3] Raichle, M.E., & Gusnard, D.A. (2002). "Appraising the brain's energy budget." *Proceedings of the National Academy of Sciences*, 99(16), 10237-10239. (Peer-reviewed, metabolic research)

@@ -1,8 +1,12 @@
 ---
-category: Research
 id: excitation-signal-design
 name: Excitation Signal Design
 description: Design effective excitation signals (step tests) for system identification and parameter estimation in control systems.
+category: Research
+requires: []
+examples:
+  - Help me design a step test for a first-order heating system.
+  - What is the recommended duration for an excitation signal with a 5-second time constant?
 ---
 
 # Excitation Signal Design for System Identification
@@ -10,6 +14,11 @@ description: Design effective excitation signals (step tests) for system identif
 ## Overview
 
 When identifying the dynamics of an unknown system, you must excite the system with a known input and observe its response. This skill describes how to design effective excitation signals for parameter estimation.
+
+## When to Use
+- When identifying the dynamics of an unknown control system for parameter estimation and controller tuning.
+- When designing experimental protocols for system identification in heating, mechanical, or chemical processes.
+- When determining the optimal data collection window for accurate mathematical modeling of a system.
 
 ## Step Test Method
 
@@ -43,17 +52,6 @@ During the step test, record:
 - Output measurement (with sensor noise)
 - Input command
 
-```python
-# Example data collection pattern
-data = []
-for step in range(num_steps):
-    result = system.step(input_value)
-    data.append({
-        "time": result["time"],
-        "output": result["output"],
-        "input": result["input"]
-    })
-```
 
 ## Expected Response Shape
 

@@ -1,8 +1,12 @@
 ---
-category: Research
 id: exploratory-data-analysis
 name: Exploratory Data Analysis
-description: Step-by-step guidance for exploratory data.
+description: Automated detection, metadata extraction, and quality assessment for 200+ scientific file formats.
+category: Research
+requires: []
+examples:
+  - Analyze this molecular structure file and provide a data quality report.
+  - Perform an exploratory analysis on this bioinformatics dataset to identify outliers.
 ---
 
 # Exploratory Data Analysis
@@ -88,13 +92,13 @@ When a user provides a file path, first identify the file type:
 4. Load format-specific information
 
 **Example:**
-```
+
 User: "Analyze data.fastq"
 → Extension: .fastq
 → Category: bioinformatics_genomics
 → Format: FASTQ Format (sequence data with quality scores)
 → Reference: references/bioinformatics_genomics_formats.md
-```
+
 
 ### Step 2: Load Format-Specific Information
 
@@ -111,7 +115,7 @@ Search the reference file for the specific extension (e.g., search for "### .fas
 Use the `scripts/eda_analyzer.py` script OR implement custom analysis:
 
 **Option A: Use the analyzer script**
-```python
+
 # The script automatically:
 # 1. Detects file type
 # 2. Loads reference information
@@ -119,7 +123,7 @@ Use the `scripts/eda_analyzer.py` script OR implement custom analysis:
 # 4. Generates markdown report
 
 python scripts/eda_analyzer.py <filepath> [output.md]
-```
+
 
 **Option B: Custom analysis in the conversation**
 Based on the format information from the reference file, perform appropriate analysis:
@@ -214,7 +218,7 @@ Each format entry includes:
 - **EDA Approach:** Specific analyses to perform
 
 **Example lookup:**
-```markdown
+
 ### .pdb - Protein Data Bank
 **Description:** Standard format for 3D structures of biological macromolecules
 **Typical Data:** Atomic coordinates, residue information, secondary structure
@@ -227,7 +231,7 @@ Each format entry includes:
 - B-factor distribution
 - Missing residues detection
 - Ramachandran plots
-```
+
 
 ## Best Practices
 
@@ -236,13 +240,13 @@ Each format entry includes:
 Reference files are large (10,000+ words each). To efficiently use them:
 
 1. **Search by extension:** Use grep to find the specific format
-   ```python
+
    import re
    with open('references/chemistry_molecular_formats.md', 'r') as f:
        content = f.read()
        pattern = r'### \.pdb[^#]*?(?=###|\Z)'
        match = re.search(pattern, content, re.IGNORECASE | re.DOTALL)
-   ```
+
 
 2. **Extract relevant sections:** Don't load entire reference files into context unnecessarily
 
@@ -266,7 +270,7 @@ Reference files are large (10,000+ words each). To efficiently use them:
 
 ### Example 1: Analyzing a FASTQ file
 
-```python
+
 # User provides: "Analyze reads.fastq"
 
 # 1. Detect file type
@@ -285,11 +289,11 @@ sequences = list(SeqIO.parse('reads.fastq', 'fastq'))
 # Include: format description, analysis results, QC recommendations
 
 # 5. Save as: reads_eda_report.md
-```
+
 
 ### Example 2: Analyzing a CSV dataset
 
-```python
+
 # User provides: "Explore experiment_results.csv"
 
 # 1. Detect: .csv → general_scientific
@@ -309,11 +313,11 @@ df = pd.read_csv('experiment_results.csv')
 # - Outlier detection results
 
 # 5. Save report
-```
+
 
 ### Example 3: Analyzing microscopy data
 
-```python
+
 # User provides: "Analyze cells.nd2"
 
 # 1. Detect: .nd2 → microscopy_imaging (Nikon format)
@@ -334,7 +338,7 @@ with ND2Reader('cells.nd2') as images:
 # - Recommendations for image analysis
 
 # 5. Save report
-```
+
 
 ## Troubleshooting
 
@@ -345,12 +349,6 @@ Many scientific formats require specialized libraries:
 **Problem:** Import error when trying to read a file
 
 **Solution:** Provide clear installation instructions
-```python
-try:
-    from Bio import SeqIO
-except ImportError:
-    print("Install Biopython: uv pip install biopython")
-```
 
 Common requirements by category:
 - **Bioinformatics:** `biopython`, `pysam`, `pyBigWig`
@@ -379,21 +377,13 @@ For very large files:
 
 ## Script Usage
 
-The `scripts/eda_analyzer.py` can be used directly:
-
-```bash
-# Basic usage
-python scripts/eda_analyzer.py data.csv
-
-# Specify output file
-python scripts/eda_analyzer.py data.csv output_report.md
 
 # The script will:
-# 1. Auto-detect file type
-# 2. Load format references
-# 3. Perform appropriate analysis
-# 4. Generate markdown report
-```
+1. Auto-detect file type
+2. Load format references
+3. Perform appropriate analysis
+4. Generate markdown report
+
 
 The script supports automatic analysis for many common formats, but custom analysis in the conversation provides more flexibility and domain-specific insights.
 
@@ -424,19 +414,3 @@ Based on data characteristics, recommend:
 3. Outlier handling
 4. Batch correction
 5. Format conversions
-
-## Resources
-
-### scripts/
-- `eda_analyzer.py`: Comprehensive analysis script that can be run directly or imported
-
-### references/
-- `chemistry_molecular_formats.md`: 60+ chemistry/molecular file formats
-- `bioinformatics_genomics_formats.md`: 50+ bioinformatics formats
-- `microscopy_imaging_formats.md`: 45+ imaging formats
-- `spectroscopy_analytical_formats.md`: 35+ spectroscopy formats
-- `proteomics_metabolomics_formats.md`: 30+ omics formats
-- `general_scientific_formats.md`: 30+ general formats
-
-### assets/
-- `report_template.md`: Comprehensive markdown template for EDA reports

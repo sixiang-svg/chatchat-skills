@@ -1,10 +1,13 @@
 ---
-category: Research
 id: ena-database
 name: ENA Database
-description: Access European Nucleotide Archive via API/FTP. Retrieve DNA/RNA sequences, raw reads (FASTQ), genome assemblies by accession, for genomics and bioinformatics pipelines. Supports multiple formats.
+description: Access European Nucleotide Archive for DNA/RNA sequences, raw reads (FASTQ), and genome assemblies via API or FTP.
+category: Research
+requires: []
+examples:
+  - Download raw sequencing reads from ENA for a specific study accession.
+  - Search for genome assemblies of a target organism in the ENA database.
 ---
-
 # ENA Database
 
 ## Overview
@@ -23,6 +26,14 @@ This skill should be used when:
 - Integrating ENA data into bioinformatics pipelines
 - Performing cross-reference searches to related databases
 - Bulk downloading datasets via FTP or Aspera
+
+## Instruction
+- Navigate the ENA data hierarchy by identifying relevant Studies, Samples, and Experiments to locate raw sequencing data.
+- Utilize the ENA Portal API for advanced metadata filtering and the Browser API for direct XML record retrieval.
+- Implement queries for raw reads (FASTQ), genome assemblies, or taxonomic records by study accession or taxon ID.
+- Adhere to the API rate limit of 50 requests per second, using exponential backoff if HTTP 429 errors occur.
+- Coordinate bulk downloads for large datasets (>100MB) via FTP or Aspera instead of standard REST calls.
+- Integrate ENA data directly into bioinformatics pipelines by programmatically extracting file URLs from metadata search results.
 
 ## Core Capabilities
 
@@ -50,29 +61,6 @@ ENA organizes data into hierarchical object types:
 
 ENA provides multiple REST APIs for data access. Consult `references/api_reference.md` for detailed endpoint documentation.
 
-**Key APIs:**
-
-**ENA Portal API** - Advanced search functionality across all ENA data types
-- Documentation: https://www.ebi.ac.uk/ena/portal/api/doc
-- Use for complex queries and metadata searches
-
-**ENA Browser API** - Direct retrieval of records and metadata
-- Documentation: https://www.ebi.ac.uk/ena/browser/api/doc
-- Use for downloading specific records by accession
-- Returns data in XML format
-
-**ENA Taxonomy REST API** - Query taxonomic information
-- Access lineage, rank, and related taxonomic data
-
-**ENA Cross Reference Service** - Access related records from external databases
-- Endpoint: https://www.ebi.ac.uk/ena/xref/rest/
-
-**CRAM Reference Registry** - Retrieve reference sequences
-- Endpoint: https://www.ebi.ac.uk/ena/cram/
-- Query by MD5 or SHA1 checksums
-
-**Rate Limiting**: All APIs have a rate limit of 50 requests per second. Exceeding this returns HTTP 429 (Too Many Requests).
-
 ### 3. Searching and Retrieving Data
 
 **Browser-Based Search:**
@@ -86,22 +74,6 @@ ENA provides multiple REST APIs for data access. Consult `references/api_referen
 - Filter by data type, date range, taxonomy, or metadata fields
 - Download results as tabulated metadata summaries or XML records
 
-**Example API Query Pattern:**
-```python
-import requests
-
-# Search for samples from a specific study
-base_url = "https://www.ebi.ac.uk/ena/portal/api/search"
-params = {
-    "result": "sample",
-    "query": "study_accession=PRJEB1234",
-    "format": "json",
-    "limit": 100
-}
-
-response = requests.get(base_url, params=params)
-samples = response.json()
-```
 
 ### 4. Data Retrieval Formats
 
@@ -125,32 +97,15 @@ samples = response.json()
 ### 5. Common Use Cases
 
 **Retrieve raw sequencing reads by accession:**
-```python
-# Download run files using Browser API
-accession = "ERR123456"
-url = f"https://www.ebi.ac.uk/ena/browser/api/xml/{accession}"
-```
+
 
 **Search for all samples in a study:**
-```python
-# Use Portal API to list samples
-study_id = "PRJNA123456"
-url = f"https://www.ebi.ac.uk/ena/portal/api/search?result=sample&query=study_accession={study_id}&format=tsv"
-```
+
 
 **Find assemblies for a specific organism:**
-```python
-# Search assemblies by taxonomy
-organism = "Escherichia coli"
-url = f"https://www.ebi.ac.uk/ena/portal/api/search?result=assembly&query=tax_tree({organism})&format=json"
-```
 
 **Get taxonomic lineage:**
-```python
-# Query taxonomy API
-taxon_id = "562"  # E. coli
-url = f"https://www.ebi.ac.uk/ena/taxonomy/rest/tax-id/{taxon_id}"
-```
+
 
 ### 6. Integration with Analysis Pipelines
 
